@@ -1,0 +1,6 @@
+*.exe
+*.out
+tags
+*.o
+*.dll
+session
