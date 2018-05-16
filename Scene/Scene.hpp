@@ -8,13 +8,16 @@
 class Scene
 {
 protected:
-	renderObject background;
+	sf::Sprite background;
 	std::shared_ptr<sf::RenderWindow> parentWindow;
 
-	void initializeBackground();
+	void setBackground
+	(const sf::Texture &tex);
+	
 	virtual sceneID eventLoop() = 0;
 public:
-	explicit Scene(const std::shared_ptr<sf::RenderWindow> &wnd);
+	explicit Scene
+	(const std::shared_ptr<sf::RenderWindow> &wnd);
 
 	// Used to make scene specific restoring actions
 	// switchScene should return when scene is Closed

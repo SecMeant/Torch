@@ -8,13 +8,6 @@
 
 constexpr int defScoreboardEntries = 12;
 
-struct renderObject
-{
-	sf::Texture texture;
-	sf::RectangleShape shape;
-	std::string assetPath;
-};
-
 enum sceneID:int32_t
 {
 	mainmenu = 0,
