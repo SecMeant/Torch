@@ -13,6 +13,11 @@
 class MainScene:public Scene
 {
 private:
+	TextButton gamesceneTextBtn;
+
+	void initializeButtons();
+	void handleMouseHovers(const sf::Event &ev);
+	sceneID handleMouseReleased(const sf::Event &ev);
 	virtual sceneID eventLoop() override;
 
 public:

@@ -1,9 +1,10 @@
 #include "complexTypes.hpp"
 
 TextButton::TextButton
-(const sf::Font &font, sf::Color defC, sf::Color hc)
+(const sf::Font &font, sf::Color defC, sf::Color hc, int32_t charSize)
 {
 	this->text.setFont(font);
+	this->text.setCharacterSize(charSize);
 	this->setColors(defC, hc);
 }
 

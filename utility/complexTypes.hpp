@@ -74,7 +74,8 @@ public:
 
 	TextButton() = default;
 	explicit TextButton(const sf::Font font);
-	TextButton(const sf::Font &font, sf::Color defC, sf::Color hc);
+	TextButton(const sf::Font &font, sf::Color defC, sf::Color hc,
+			int32_t charSize=20);
 
 	bool clicked(const sf::Event &ev);
 	void handleHoverEvent(const sf::Event &ev);

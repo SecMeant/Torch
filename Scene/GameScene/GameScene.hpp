@@ -2,6 +2,7 @@
 #define GAMESCENE_H
 
 #include "../Scene.hpp"
+#include "../../Player/Player.hpp"
 
 #include "../../utility/complexTypes.hpp"
 
