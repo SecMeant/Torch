@@ -5,11 +5,11 @@ OBJS=main.o scene.o scenemanager.o texturemanager.o complexTypes.o
 OBJDIR=obj
 
 ifdef ComSpec
-appname=snake.exe
+appname=torch.exe
 removeObj=del /Q obj\*
 mkobjdir=@if not exist obj\\ mkdir obj\\
 else
-appname=snake.out
+appname=torch.out
 removeObj=rm ./obj/*
 mkobjdir=mkdir -p obj/
 endif 
