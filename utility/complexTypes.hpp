@@ -11,8 +11,7 @@ constexpr int defScoreboardEntries = 12;
 enum sceneID:int32_t
 {
 	mainmenu = 0,
-	highscores = 1,
-	gamescene = 2,
+	gamescene = 1,
 	none = 1337
 };
 

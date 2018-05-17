@@ -14,9 +14,17 @@ private:
 	inline void loadFonts();
 public:
 	static sf::Font defaultFont;
+	static sf::Texture gamesceneBackground;
+	static sf::Texture mainsceneBackground;
 
 	static constexpr const char *defaultFontPath
 		= "./assets/font/orange_juice.ttf";
+
+	static constexpr const char *gamesceneBackgroundPath
+		= "./assets/gamesceneBackground.png";
+
+	static constexpr const char *mainsceneBackgroundPath
+		= "./assets/mainsceneBackground.png";
 
 	TextureManager();
 	~TextureManager();

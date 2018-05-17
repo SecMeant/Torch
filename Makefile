@@ -1,7 +1,8 @@
 CC=g++
 CFLAGS=-Wextra -Wall -std=c++14
 sfmlso=-lsfml-graphics -lsfml-window -lsfml-system
-OBJS=main.o scene.o scenemanager.o texturemanager.o complexTypes.o
+OBJS=main.o scene.o scenemanager.o texturemanager.o complexTypes.o\
+		 mainscene.o gamescene.o
 OBJDIR=obj
 
 ifdef ComSpec
@@ -28,6 +29,12 @@ $(OBJDIR)/main.o: main.cc
 	$(CC) -c $^ -o $@ $(CFLAGS)
 
 $(OBJDIR)/scene.o: Scene/Scene.cc
+	$(CC) -c $^ -o $@ $(CFLAGS)
+
+$(OBJDIR)/gamescene.o: Scene/GameScene/GameScene.cc
+	$(CC) -c $^ -o $@ $(CFLAGS)
+
+$(OBJDIR)/mainscene.o: Scene/MainScene/MainScene.cc
 	$(CC) -c $^ -o $@ $(CFLAGS)
 
 $(OBJDIR)/scenemanager.o: SceneManager/SceneManager.cc

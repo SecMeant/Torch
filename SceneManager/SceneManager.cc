@@ -1,5 +1,8 @@
 #include "SceneManager.hpp"
 
+#include "../Scene/MainScene/MainScene.hpp"
+#include "../Scene/GameScene/GameScene.hpp"
+
 SceneManager::SceneManager()
 : mainWindow()
 {
@@ -10,7 +13,10 @@ SceneManager::SceneManager()
 		 "Snake game", sf::Style::Close);
 	this->mainWindow->setFramerateLimit(60);
 
-	this->currentScene = sceneID::none;
+	this->registerScene<MainScene>();
+	this->registerScene<GameScene>();
+
+	this->currentScene = sceneID::mainmenu;
 }
 
 void SceneManager::switchScene(sceneID scene)

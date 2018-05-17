@@ -1,6 +1,9 @@
 #include "TextureManager.hpp"
 
 sf::Font TextureManager::defaultFont;
+sf::Texture TextureManager::gamesceneBackground;
+sf::Texture TextureManager::mainsceneBackground;
+
 int32_t TextureManager::lifecount = 0;
 
 TextureManager::TextureManager()
@@ -16,7 +19,8 @@ TextureManager::TextureManager()
 
 void TextureManager::loadTextures()
 {
-
+	TextureManager::gamesceneBackground.loadFromFile(this->gamesceneBackgroundPath);
+	TextureManager::mainsceneBackground.loadFromFile(this->mainsceneBackgroundPath);
 }
 
 void TextureManager::loadFonts()
