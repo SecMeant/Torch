@@ -4,8 +4,9 @@ TEMPLATESCENE::TEMPLATESCENE(const std::shared_ptr<sf::RenderWindow> &wnd)
 :Scene(wnd)
 {
 	puts("TEMPLATE SCENE CREATION MESSAGE");
-	this->background.assetPath = "./assets/default-background.png";
-	this->initializeBackground();
+
+	// TODO PROBABLY WANT TO SET BACKGROUND
+	// this->setBackground();
 }
 
 sceneID TEMPLATESCENE::eventLoop()
@@ -25,7 +26,7 @@ sceneID TEMPLATESCENE::eventLoop()
 		}
 
 		this->parentWindow->clear();
-		this->parentWindow->draw(this->background.shape);
+		this->parentWindow->draw(this->background);
 		this->parentWindow->display();
 	}
 	return {sceneID::none};
