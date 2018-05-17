@@ -1,5 +1,12 @@
 #include "complexTypes.hpp"
 
+TextButton::TextButton
+(const sf::Font &font, sf::Color defC, sf::Color hc)
+{
+	this->text.setFont(font);
+	this->setColors(defC, hc);
+}
+
 bool TextButton::clicked(const sf::Event &ev)
 {
 	auto mousex = ev.mouseButton.x;
