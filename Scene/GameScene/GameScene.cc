@@ -25,6 +25,7 @@ sceneID GameScene::eventLoop()
 
 		this->parentWindow->clear();
 		this->parentWindow->draw(this->background);
+		this->player.draw(*parentWindow);
 		this->parentWindow->display();
 	}
 	return {sceneID::none};

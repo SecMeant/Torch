@@ -17,11 +17,14 @@ enum sceneID:int32_t
 
 enum class Direction
 {
-	Up,
-	Down,
-	Left,
-	Right,
-	None
+	N,
+	NE,
+	E,
+	SE,
+	S,
+	SW,
+	W,
+	NW,
 };
 
 enum class GameState

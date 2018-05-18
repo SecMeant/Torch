@@ -14,6 +14,7 @@
 class GameScene:public Scene
 {
 private:
+	Player player;
 	virtual sceneID eventLoop() override;
 
 public:
