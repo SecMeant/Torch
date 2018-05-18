@@ -12,7 +12,6 @@ DynamicSprite::DynamicSprite
 	this->currentFrame.setTexture(tex);
 	this->currentFrame.setTextureRect
 		(sf::IntRect(offsetX, offsetY, tWidth,tHeight));
-	this->currentFrame.setScale(2,2);
 	this->currentFrame.setPosition(300,300);
 
 	this->clock.restart();

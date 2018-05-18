@@ -1,9 +1,15 @@
 #include "Player.hpp"
 
 Player::Player()
-:playerSprite(TextureManager::wizard_idle, 0, 47,16,22, 4, 0.1f)
+:playerSprite(this->direction)
 {
 	this->Moveable::set({300,300}, Direction::N);
+	this->playerSprite.setIdleAnimation
+		(TextureManager::wizard_idle, 0, 24,16,22, 4, 0.15f);
+	this->playerSprite.setMoveVerticalAnimation
+		(TextureManager::wizard_idle, 0, 47,16,22, 4, 0.1f);
+	this->playerSprite.setMoveHorizontalAnimation
+		(TextureManager::wizard_idle, 0, 47,16,22, 4, 0.1f);
 }
 
 void Player::draw

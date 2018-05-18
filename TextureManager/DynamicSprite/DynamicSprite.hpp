@@ -17,13 +17,16 @@ private:
 	SizeType texSize;
 	int32_t animPhaseNumber;
 	float cooldown;
-	sf::Sprite currentFrame;
 
 public:
+	sf::Sprite currentFrame;
+
+	DynamicSprite() = default;
+
 	DynamicSprite
 	(const sf::Texture &tex, int32_t offsetX, int32_t offsetY,
 	 int32_t tWidth, int32_t tHeight, int32_t numberOfFrames, float cooldown);
-	
+
 	void update();
 	sf::Sprite& getFrame();
 };

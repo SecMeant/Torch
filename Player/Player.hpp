@@ -2,18 +2,18 @@
 #define PLAYER_H
 
 #include "../Interfaces/Moveable/Moveable.hpp"
-#include "../TextureManager/DynamicSprite/DynamicSprite.hpp"
+#include "../TextureManager/DynamicSprite/MotionSprite/MotionSprite.hpp"
 
 #include <stdint.h>
 
-class Player: protected Moveable
+class Player:public Moveable
 {
-private:
-	mutable DynamicSprite playerSprite;
-
 public:
-	void draw(sf::RenderWindow &wnd) const;
+	mutable MotionSprite playerSprite;
+
 	Player();
+
+	void draw(sf::RenderWindow &wnd) const;
 };
 
 #endif // PLAYER_H

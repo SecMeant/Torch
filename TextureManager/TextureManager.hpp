@@ -17,7 +17,7 @@ public:
 	static sf::Texture gamesceneBackground;
 	static sf::Texture mainsceneBackground;
 	static sf::Texture wizard_idle;
-
+	
 	static constexpr const char *defaultFontPath
 		= "./assets/font/orange_juice.ttf";
 

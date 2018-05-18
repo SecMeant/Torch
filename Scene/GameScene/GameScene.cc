@@ -20,7 +20,14 @@ sceneID GameScene::eventLoop()
 			if (event.type == sf::Event::MouseButtonPressed)
 				return {sceneID::mainmenu};
 
-			// TODO event handling
+			if(event.type == sf::Event::KeyPressed)
+			{
+				auto ret = this->handleKeyPressed(event);
+
+				if(ret != sceneID::none)
+					return ret;
+			}
+
 		}
 
 		this->parentWindow->clear();
@@ -29,6 +36,37 @@ sceneID GameScene::eventLoop()
 		this->parentWindow->display();
 	}
 	return {sceneID::none};
+}
+
+sceneID GameScene::handleKeyPressed
+(const sf::Event &kev)
+{
+	sceneID ret = sceneID::none;
+	switch(kev.key.code)
+	{
+		case sf::Keyboard::Up:
+			//this->player.direction = Direction::N;
+			this->player.playerSprite.currentAnimation
+				= MotionSprite::spriteID::idle;
+			break;
+		
+		case sf::Keyboard::Left:
+			this->player.direction = Direction::W;
+			this->player.playerSprite.currentAnimation
+				= MotionSprite::spriteID::moveHorizontal;
+			break;
+	
+		case sf::Keyboard::Right:
+			this->player.direction = Direction::E;
+			this->player.playerSprite.currentAnimation
+				= MotionSprite::spriteID::moveHorizontal;
+			break;
+
+		default:
+			break;
+	}
+
+	return ret;
 }
 
 sceneID GameScene::switchScene()
