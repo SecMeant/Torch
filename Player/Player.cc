@@ -15,7 +15,11 @@ Player::Player()
 void Player::draw
 (sf::RenderWindow &wnd) const
 {
+	printf("%f %f\n", this->Moveable::position.first, this->Moveable::position.second);
+
 	this->playerSprite.update();
-	wnd.draw(this->playerSprite.getFrame());
+	auto frame = this->playerSprite.getFrame();
+	frame.setPosition(this->Moveable::position.first, this->Moveable::position.second);
+	wnd.draw(frame);
 	return;
 }

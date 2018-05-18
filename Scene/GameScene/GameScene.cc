@@ -48,18 +48,21 @@ sceneID GameScene::handleKeyPressed
 			//this->player.direction = Direction::N;
 			this->player.playerSprite.currentAnimation
 				= MotionSprite::spriteID::idle;
+			this->player.move(0.0f, -3.0f);
 			break;
 		
 		case sf::Keyboard::Left:
 			this->player.direction = Direction::W;
 			this->player.playerSprite.currentAnimation
 				= MotionSprite::spriteID::moveHorizontal;
+			this->player.move(-3.0f, 0.0f);
 			break;
 	
 		case sf::Keyboard::Right:
 			this->player.direction = Direction::E;
 			this->player.playerSprite.currentAnimation
 				= MotionSprite::spriteID::moveHorizontal;
+			this->player.move(3.0f, 0.0f);
 			break;
 
 		default:
