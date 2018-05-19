@@ -34,10 +34,12 @@ void MotionSprite::setMoveVerticalAnimation
 
 void MotionSprite::applyRotation()
 {
+	auto& ds = this->animations[this->currentAnimation];
+
 	if(this->direction == Direction::W)
-		this->animations[this->currentAnimation].currentFrame.setScale(-2.0f,2.0f);
+		ds.isFlipped = true;
 	else
-		this->animations[this->currentAnimation].currentFrame.setScale(2.0f,2.0f);
+		ds.isFlipped = false;
 }
 
 void MotionSprite::update()

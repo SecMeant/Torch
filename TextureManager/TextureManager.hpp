@@ -17,6 +17,8 @@ public:
 	static sf::Texture gamesceneBackground;
 	static sf::Texture mainsceneBackground;
 	static sf::Texture wizard;
+	static sf::Texture light;
+	static sf::Texture torch;
 	
 	static constexpr const char *defaultFontPath
 		= "./assets/font/orange_juice.ttf";
@@ -29,6 +31,12 @@ public:
 
 	static constexpr const char *wizardPath
 		= "./assets/player/wizard.png";
+
+	static constexpr const char *lightPath
+		= "./assets/light.png";
+
+	static constexpr const char *torchPath
+		= "./assets/torch.png";
 
 	TextureManager();
 	~TextureManager();

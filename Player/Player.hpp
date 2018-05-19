@@ -9,6 +9,8 @@
 class Player:public Moveable
 {
 public:
+	mutable DynamicSprite torch;
+	mutable DynamicSprite light;
 	mutable MotionSprite playerSprite;
 
 	Player();

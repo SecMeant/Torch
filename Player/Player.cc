@@ -1,7 +1,9 @@
 #include "Player.hpp"
 
 Player::Player()
-:playerSprite(this->direction)
+:torch(TextureManager::torch, 0, 0, 9, 15, 3, 0.25f),
+ light(TextureManager::light, 0, 0, 40, 40, 5, 0.25f),
+ playerSprite(this->direction)
 {
 	this->Moveable::set({300,300}, Direction::N);
 	this->playerSprite.setIdleAnimation
@@ -15,9 +17,42 @@ Player::Player()
 void Player::draw
 (sf::RenderWindow &wnd) const
 {
+	this->torch.update();
+	this->light.update();
 	this->playerSprite.update();
-	auto frame = this->playerSprite.getFrame();
-	frame.setPosition(this->Moveable::position.first, this->Moveable::position.second);
+
+	// Drawing light texture
+	auto frame = this->light.getFrame();
+	frame.setPosition(this->Moveable::position.first - 6,
+			              this->Moveable::position.second + 20 /* Bottom texture offset */);
 	wnd.draw(frame);
+
+	if (this->Moveable::direction == Direction::W)
+	{
+		// Drawing torch texture
+		frame = this->torch.getFrame();
+		frame.setPosition(this->Moveable::position.first - 6,
+											this->Moveable::position.second - 4);
+		wnd.draw(frame);
+
+		// Drawing player texture
+		frame = this->playerSprite.getFrame();
+		frame.setPosition(this->Moveable::position.first, this->Moveable::position.second);
+		wnd.draw(frame);
+	}
+	else
+	{
+		// Drawing player texture
+		frame = this->playerSprite.getFrame();
+		frame.setPosition(this->Moveable::position.first, this->Moveable::position.second);
+		wnd.draw(frame);
+
+		// Drawing torch texture
+		frame = this->torch.getFrame();
+		frame.setPosition(this->Moveable::position.first - 6,
+											this->Moveable::position.second - 2);
+		wnd.draw(frame);
+	}
+
 	return;
 }

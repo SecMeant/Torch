@@ -17,15 +17,22 @@ private:
 	SizeType texSize;
 	int32_t animPhaseNumber;
 	float cooldown;
+	float scaleFactorX;
+	float scaleFactorY;
 
 public:
 	sf::Sprite currentFrame;
 
-	DynamicSprite() = default;
+	// Holds value which tells if texture is
+	// flipped horizontally
+	bool isFlipped;
+
+	DynamicSprite();
 
 	DynamicSprite
 	(const sf::Texture &tex, int32_t offsetX, int32_t offsetY,
-	 int32_t tWidth, int32_t tHeight, int32_t numberOfFrames, float cooldown);
+	 int32_t tWidth, int32_t tHeight, int32_t numberOfFrames, float cooldown,
+	 float scaleFactorX = 2.0f, float scaleFactorY = 2.0f);
 
 	void update();
 	sf::Sprite& getFrame();
