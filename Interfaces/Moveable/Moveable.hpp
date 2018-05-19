@@ -11,7 +11,7 @@ class Moveable
 {
 public:
 	typedef std::pair<float, float> CoordType;
-	static constexpr float defRunSpeed = 75.0f;
+	static constexpr float defRunSpeed = 175.0f;
 
 	// Used to calculate movement according to time passed
 	sf::Clock clock;

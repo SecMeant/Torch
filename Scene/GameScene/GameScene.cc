@@ -46,7 +46,7 @@ sceneID GameScene::handleKeyPressed
 	switch(kev.key.code)
 	{
 		case sf::Keyboard::Up:
-			//this->player.direction = Direction::N;
+			this->player.direction = Direction::N;
 			this->player.playerSprite.currentAnimation
 				= MotionSprite::spriteID::moveVertical;
 			this->player.stop();
@@ -70,12 +70,17 @@ sceneID GameScene::handleKeyPressed
 			break;
 
 		case sf::Keyboard::Down:
-			//this->player.direction = Direction::N;
+			this->player.direction = Direction::S;
 			this->player.playerSprite.currentAnimation
 				= MotionSprite::spriteID::moveVertical;
 			this->player.stop();
 			this->player.Vspeed = Moveable::defRunSpeed;
 			break;
+
+		case sf::Keyboard::Space:
+			this->player.playerSprite.currentAnimation
+				= MotionSprite::spriteID::idle;
+			this->player.stop();
 
 		default:
 			break;
