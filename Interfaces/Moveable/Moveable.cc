@@ -19,6 +19,21 @@ void Moveable::updatePosition()
 	this->position.second += this->Vspeed*dt;
 
 	this->clock.restart();
+
+	// Resets velocities
+	this->stop();
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		this->Vspeed -= Moveable::defRunSpeed;
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		this->Vspeed += Moveable::defRunSpeed;
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		this->Hspeed -= Moveable::defRunSpeed;
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		this->Hspeed += Moveable::defRunSpeed;
 }
 
 void Moveable::stop()

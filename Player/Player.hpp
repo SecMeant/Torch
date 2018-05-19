@@ -15,6 +15,11 @@ public:
 
 	Player();
 
+	void updateDirection();
+
+	// Handles texture changing according to movement
+	void updateOrientation();
+
 	void draw(sf::RenderWindow &wnd) const;
 };
 

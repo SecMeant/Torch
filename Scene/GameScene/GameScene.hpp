@@ -3,6 +3,7 @@
 
 #include "../Scene.hpp"
 #include "../../Player/Player.hpp"
+#include "StateMachine/StateMachine.hpp"
 
 #include "../../utility/complexTypes.hpp"
 
@@ -14,6 +15,7 @@
 class GameScene:public Scene
 {
 private:
+	StateMachine stateMachine;
 	Player player;
 	virtual sceneID eventLoop() override;
 
