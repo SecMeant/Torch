@@ -3,7 +3,7 @@
 sf::Font TextureManager::defaultFont;
 sf::Texture TextureManager::gamesceneBackground;
 sf::Texture TextureManager::mainsceneBackground;
-sf::Texture TextureManager::wizard_idle;
+sf::Texture TextureManager::wizard;
 
 int32_t TextureManager::lifecount = 0;
 
@@ -22,7 +22,7 @@ void TextureManager::loadTextures()
 {
 	TextureManager::gamesceneBackground.loadFromFile(this->gamesceneBackgroundPath);
 	TextureManager::mainsceneBackground.loadFromFile(this->mainsceneBackgroundPath);
-	TextureManager::wizard_idle.loadFromFile(this->wizard_idlePath);
+	TextureManager::wizard.loadFromFile(this->wizardPath);
 }
 
 void TextureManager::loadFonts()

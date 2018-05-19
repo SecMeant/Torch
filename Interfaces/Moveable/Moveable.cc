@@ -1,10 +1,30 @@
 #include "Moveable.hpp"
 
+Moveable::Moveable()
+:Vspeed(0.0f), Hspeed(0.0f)
+{}
+
 void Moveable::set
 (CoordType p, Direction d)
 {
 	this->position = p;
 	this->direction = d;
+}
+
+void Moveable::updatePosition()
+{
+	auto dt = this->clock.getElapsedTime().asSeconds();
+
+	this->position.first += this->Hspeed*dt;
+	this->position.second += this->Vspeed*dt;
+
+	this->clock.restart();
+}
+
+void Moveable::stop()
+{
+	this->Vspeed = 0;
+	this->Hspeed = 0;
 }
 
 void Moveable::move

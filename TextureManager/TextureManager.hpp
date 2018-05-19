@@ -16,7 +16,7 @@ public:
 	static sf::Font defaultFont;
 	static sf::Texture gamesceneBackground;
 	static sf::Texture mainsceneBackground;
-	static sf::Texture wizard_idle;
+	static sf::Texture wizard;
 	
 	static constexpr const char *defaultFontPath
 		= "./assets/font/orange_juice.ttf";
@@ -27,8 +27,8 @@ public:
 	static constexpr const char *mainsceneBackgroundPath
 		= "./assets/mainsceneBackground.png";
 
-	static constexpr const char *wizard_idlePath
-		= "./assets/player/wizard-idle.png";
+	static constexpr const char *wizardPath
+		= "./assets/player/wizard.png";
 
 	TextureManager();
 	~TextureManager();

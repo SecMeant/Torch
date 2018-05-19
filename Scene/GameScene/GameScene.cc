@@ -32,6 +32,7 @@ sceneID GameScene::eventLoop()
 
 		this->parentWindow->clear();
 		this->parentWindow->draw(this->background);
+		this->player.updatePosition();
 		this->player.draw(*parentWindow);
 		this->parentWindow->display();
 	}
@@ -47,22 +48,33 @@ sceneID GameScene::handleKeyPressed
 		case sf::Keyboard::Up:
 			//this->player.direction = Direction::N;
 			this->player.playerSprite.currentAnimation
-				= MotionSprite::spriteID::idle;
-			this->player.move(0.0f, -3.0f);
+				= MotionSprite::spriteID::moveVertical;
+			this->player.stop();
+			this->player.Vspeed = -Moveable::defRunSpeed;
 			break;
 		
 		case sf::Keyboard::Left:
 			this->player.direction = Direction::W;
 			this->player.playerSprite.currentAnimation
 				= MotionSprite::spriteID::moveHorizontal;
-			this->player.move(-3.0f, 0.0f);
+			this->player.stop();
+			this->player.Hspeed = -Moveable::defRunSpeed;
 			break;
 	
 		case sf::Keyboard::Right:
 			this->player.direction = Direction::E;
 			this->player.playerSprite.currentAnimation
 				= MotionSprite::spriteID::moveHorizontal;
-			this->player.move(3.0f, 0.0f);
+			this->player.stop();
+			this->player.Hspeed = Moveable::defRunSpeed;
+			break;
+
+		case sf::Keyboard::Down:
+			//this->player.direction = Direction::N;
+			this->player.playerSprite.currentAnimation
+				= MotionSprite::spriteID::moveVertical;
+			this->player.stop();
+			this->player.Vspeed = Moveable::defRunSpeed;
 			break;
 
 		default:
