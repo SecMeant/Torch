@@ -2,8 +2,8 @@ CC=g++
 CFLAGS=-Wextra -Wall -std=c++14
 sfmlso=-lsfml-graphics -lsfml-window -lsfml-system
 OBJS=main.o scene.o scenemanager.o texturemanager.o complexTypes.o\
-		 mainscene.o gamescene.o player.o moveable.o dynamicsprite.o statemachine.o\
-		 motionsprite.o
+		 mainscene.o gamescene.o player.o moveable.o dynamicsprite.o\
+		 motionsprite.o level.o
 OBJDIR=obj
 
 ifdef ComSpec
@@ -35,9 +35,6 @@ $(OBJDIR)/scene.o: Scene/Scene.cc
 $(OBJDIR)/gamescene.o: Scene/GameScene/GameScene.cc
 	$(CC) -c $^ -o $@ $(CFLAGS)
 
-$(OBJDIR)/statemachine.o: Scene/GameScene/StateMachine/StateMachine.cc
-	$(CC) -c $^ -o $@ $(CFLAGS)
-
 $(OBJDIR)/mainscene.o: Scene/MainScene/MainScene.cc
 	$(CC) -c $^ -o $@ $(CFLAGS)
 
@@ -54,6 +51,9 @@ $(OBJDIR)/motionsprite.o: TextureManager/DynamicSprite/MotionSprite/MotionSprite
 	$(CC) -c $^ -o $@ $(CFLAGS)
 
 $(OBJDIR)/player.o: Player/Player.cc
+	$(CC) -c $^ -o $@ $(CFLAGS)
+
+$(OBJDIR)/level.o: Level/Level.cc
 	$(CC) -c $^ -o $@ $(CFLAGS)
 
 $(OBJDIR)/moveable.o: Interfaces/Moveable/Moveable.cc

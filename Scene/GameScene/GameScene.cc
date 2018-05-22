@@ -5,6 +5,8 @@ GameScene::GameScene(const std::shared_ptr<sf::RenderWindow> &wnd)
 {
 	puts("GAMESCENE CREATION MESSAGE");
 	this->setBackground(TextureManager::gamesceneBackground);
+
+	this->level.loadMap("./Level/mapfiles/test.map");
 }
 
 sceneID GameScene::eventLoop()

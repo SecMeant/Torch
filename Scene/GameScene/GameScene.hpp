@@ -3,7 +3,7 @@
 
 #include "../Scene.hpp"
 #include "../../Player/Player.hpp"
-#include "StateMachine/StateMachine.hpp"
+#include "../../Level/Level.hpp"
 
 #include "../../utility/complexTypes.hpp"
 
@@ -15,8 +15,8 @@
 class GameScene:public Scene
 {
 private:
-	StateMachine stateMachine;
 	Player player;
+	Level level;
 	virtual sceneID eventLoop() override;
 
 	sceneID handleKeyPressed(const sf::Event &kev);
