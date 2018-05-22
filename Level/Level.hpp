@@ -32,7 +32,7 @@ public:
 	}mapHeader;
 	#pragma pack(pop)
 
-struct mapObject
+	struct mapObject
 	{
 		uint32_t id;
 		uint32_t x;
@@ -48,6 +48,7 @@ public:
 	Level() = default;
 
 	void loadMap(const char *mapfilepath);
+	void printObjects();
 };
 
 #endif // LEVEL_H

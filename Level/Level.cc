@@ -36,7 +36,7 @@ bool Level::fetchObjectFromFile(FILE *mapfile)
 		return false;
 	}
 
-	printf("OBJ: %u %u %u\n", obj.id, obj.x, obj.y);
+	this->objects.push_back(obj);
 	return true;
 }
 
@@ -51,5 +51,15 @@ void Level::loadMap(const char *mapfilepath)
 	}
 
 	this->loadMap(f);
+}
+
+void Level::printObjects()
+{
+	puts("Object list:");
+	for(const auto& obj:this->objects)
+	{
+		printf("id: %u\t x: %u\t y: %u\n",
+				   obj.id, obj.x, obj.y);
+	}
 }
 

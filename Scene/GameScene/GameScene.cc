@@ -80,8 +80,7 @@ sceneID GameScene::switchScene()
 {
 	puts("Switching to GAMESCENE");
 
-	// TODO
-	// Some returning animation ?
+	this->level.printObjects();
 
 	return this->eventLoop();
 }

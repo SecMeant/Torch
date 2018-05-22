@@ -19,6 +19,8 @@ public:
 	static sf::Texture wizard;
 	static sf::Texture light;
 	static sf::Texture torch;
+	static sf::Texture wall;
+	static sf::Texture box;
 	
 	static constexpr const char *defaultFontPath
 		= "./assets/font/orange_juice.ttf";
@@ -37,6 +39,12 @@ public:
 
 	static constexpr const char *torchPath
 		= "./assets/torch.png";
+
+	static constexpr const char *wallPath
+		= "./assets/map/wall.png";
+
+	static constexpr const char *boxPath
+		= "./assets/map/box.png";
 
 	TextureManager();
 	~TextureManager();
