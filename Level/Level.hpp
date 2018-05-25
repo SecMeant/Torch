@@ -30,7 +30,6 @@ public:
 		uint32_t mapWidth;
 		uint32_t mapHeight;
 	}mapHeader;
-	#pragma pack(pop)
 
 	struct mapObject
 	{
@@ -38,6 +37,7 @@ public:
 		float x;
 		float y;
 	};
+	#pragma pack(pop)
 
 private:
 	void loadMap(FILE *mapfile);
