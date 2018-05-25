@@ -20,6 +20,8 @@ private:
 	virtual sceneID eventLoop() override;
 
 	sceneID handleKeyPressed(const sf::Event &kev);
+
+	void drawPlayer();
 public:
 	explicit GameScene(const std::shared_ptr<sf::RenderWindow> &wnd);
 

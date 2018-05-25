@@ -34,9 +34,10 @@ sceneID GameScene::eventLoop()
 
 		this->parentWindow->clear();
 		this->parentWindow->draw(this->background);
+		this->level.drawAll(*parentWindow);
 		this->player.updatePosition();
 		this->player.updateOrientation();
-		this->player.draw(*parentWindow);
+		this->drawPlayer();
 		this->parentWindow->display();
 	}
 	return {sceneID::none};
@@ -74,6 +75,50 @@ sceneID GameScene::handleKeyPressed
 	}
 
 	return ret;
+}
+
+void GameScene::drawPlayer()
+{
+	this->player.torch.update();
+	this->player.light.update();
+	this->player.playerSprite.update();
+
+	// Drawing light texture
+	auto frame = this->player.light.getFrame();
+	frame.setPosition(this->player.defaultPosition.first - 6,
+			              this->player.defaultPosition.second + 15 /* Bottom texture offset */);
+	this->parentWindow->draw(frame);
+
+	if (this->player.Moveable::direction == Direction::W)
+	{
+		// Drawing torch texture
+		frame = this->player.torch.getFrame();
+		frame.setPosition(this->player.defaultPosition.first - 6,
+											this->player.defaultPosition.second - 8);
+		this->parentWindow->draw(frame);
+
+		// Drawing player texture
+		frame = this->player.playerSprite.getFrame();
+		frame.setPosition(this->player.defaultPosition.first,
+				              this->player.defaultPosition.second);
+		this->parentWindow->draw(frame);
+	}
+	else
+	{
+		// Drawing player texture
+		frame = this->player.playerSprite.getFrame();
+		frame.setPosition(this->player.defaultPosition.first,
+				              this->player.defaultPosition.second);
+		this->parentWindow->draw(frame);
+
+		// Drawing torch texture
+		frame = this->player.torch.getFrame();
+		frame.setPosition(this->player.defaultPosition.first - 6,
+											this->player.defaultPosition.second - 6);
+		this->parentWindow->draw(frame);
+	}
+
+	return;
 }
 
 sceneID GameScene::switchScene()

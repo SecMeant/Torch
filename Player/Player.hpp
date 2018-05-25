@@ -9,6 +9,10 @@
 class Player:public Moveable
 {
 public:
+	typedef std::pair<float, float> fcoords;
+
+	static constexpr fcoords defaultPosition{400,400};
+
 	mutable DynamicSprite torch;
 	mutable DynamicSprite light;
 	mutable MotionSprite playerSprite;
@@ -19,8 +23,6 @@ public:
 
 	// Handles texture changing according to movement
 	void updateOrientation();
-
-	void draw(sf::RenderWindow &wnd) const;
 };
 
 #endif // PLAYER_H
