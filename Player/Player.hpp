@@ -15,8 +15,6 @@ public:
 
 	Player();
 
-	void updateDirection();
-
 	// Handles texture changing according to movement
 	void updateOrientation();
 };

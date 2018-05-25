@@ -14,10 +14,6 @@ Player::Player()
 		(TextureManager::wizard, 0, 47, 16, 22, 4, 0.1f);
 }
 
-void Player::updateDirection()
-{
-}
-
 void Player::updateOrientation()
 {
 	if (this->Moveable::Hspeed == 0 && this->Moveable::Vspeed == 0)
