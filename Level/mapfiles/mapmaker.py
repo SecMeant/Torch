@@ -1,7 +1,7 @@
 import struct
 
 def addObject(mapfile, objectID, x, y):
-  f.write(struct.pack("III", objectID, x, y))
+  f.write(struct.pack("Iff", objectID, x, y))
 
 f = open("test.map","wb")
 f.write(b'TM') # signature

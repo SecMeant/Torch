@@ -10,13 +10,14 @@
 class Moveable
 {
 public:
-	typedef std::pair<float, float> CoordType;
+	static constexpr float defPosx = 400;
+	static constexpr float defPosy = 400;
 	static constexpr float defRunSpeed = 175.0f;
 
 	// Used to calculate movement according to time passed
 	sf::Clock clock;
 
-	CoordType position;
+	sf::Vector2f position;
 	Direction direction;
 
 	Moveable();
@@ -27,7 +28,7 @@ public:
 	// Horizontal speed
 	float Hspeed;
 
-	void set(CoordType p, Direction d);
+	void set(sf::Vector2f p, Direction d);
 
 	// Updates position according to forces and
 	// speeds aplied to this object

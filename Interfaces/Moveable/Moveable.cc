@@ -5,7 +5,7 @@ Moveable::Moveable()
 {}
 
 void Moveable::set
-(CoordType p, Direction d)
+(sf::Vector2f p, Direction d)
 {
 	this->position = p;
 	this->direction = d;
@@ -15,8 +15,8 @@ void Moveable::updatePosition()
 {
 	auto dt = this->clock.getElapsedTime().asSeconds();
 
-	this->position.first += this->Hspeed*dt;
-	this->position.second += this->Vspeed*dt;
+	this->position.x += this->Hspeed*dt;
+	this->position.y += this->Vspeed*dt;
 
 	this->clock.restart();
 
@@ -45,8 +45,8 @@ void Moveable::stop()
 void Moveable::move
 (float x, float y)
 {
-	this->position.first += x;
-	this->position.second += y;
+	this->position.x += x;
+	this->position.y += y;
 }
 
 void Moveable::move
@@ -55,32 +55,32 @@ void Moveable::move
 	switch(d)
 	{
 		case Direction::N:
-			this->position.second += len;
+			this->position.y += len;
 			break;
 		case Direction::NE:
-			this->position.first += 1.414 * len;
-			this->position.second += 1.414 * len;
+			this->position.x += 1.414 * len;
+			this->position.y += 1.414 * len;
 			break;
 		case Direction::E:
-			this->position.first += len;
+			this->position.x += len;
 			break;
 		case Direction::SE:
-			this->position.first += 1.414 * len;
-			this->position.second -= 1.414 * len;
+			this->position.x += 1.414 * len;
+			this->position.y -= 1.414 * len;
 			break;
 		case Direction::S:
-			this->position.second -= len;
+			this->position.y -= len;
 			break;
 		case Direction::SW:
-			this->position.first -= 1.414 * len;
-			this->position.second -= 1.414 * len;
+			this->position.x -= 1.414 * len;
+			this->position.y -= 1.414 * len;
 			break;
 		case Direction::W:
-			this->position.first -= len;
+			this->position.x -= len;
 			break;
 		case Direction::NW:
-			this->position.first -= 1.414 * len;
-			this->position.second += 1.414 * len;
+			this->position.x -= 1.414 * len;
+			this->position.y += 1.414 * len;
 			break;
 	}
 }

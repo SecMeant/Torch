@@ -9,10 +9,6 @@
 class Player:public Moveable
 {
 public:
-	typedef std::pair<float, float> fcoords;
-
-	static constexpr fcoords defaultPosition{400,400};
-
 	mutable DynamicSprite torch;
 	mutable DynamicSprite light;
 	mutable MotionSprite playerSprite;

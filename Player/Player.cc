@@ -5,7 +5,7 @@ Player::Player()
  light(TextureManager::light, 0, 0, 40, 40, 5, 0.25f, 2, 2),
  playerSprite(this->direction)
 {
-	this->Moveable::set({300,300}, Direction::N);
+	this->Moveable::set({0,0}, Direction::N);
 	this->playerSprite.setIdleAnimation
 		(TextureManager::wizard, 16, 24, 16, 22, 2, 0.75f);
 	this->playerSprite.setMoveVerticalAnimation

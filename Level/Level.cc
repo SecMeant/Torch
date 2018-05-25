@@ -17,7 +17,7 @@ void Level::loadMap(FILE *mapfile)
 		return;
 	}
 
-	printf("Loading map ended successfull.\nSize:%u %u %u\n",
+	printf("Loading map header ended successfull.\nSize:%u %u %u\n",
 			    (uint32_t)sizeof(_mapHeader),
 					this->mapHeader.mapWidth,
 					this->mapHeader.mapHeight);
@@ -58,7 +58,7 @@ void Level::printObjects()
 	puts("Object list:");
 	for(const auto& obj:this->objects)
 	{
-		printf("id: %u\t x: %u\t y: %u\n",
+		printf("id: %u\t x: %f\t y: %f\n",
 				   obj.id, obj.x, obj.y);
 	}
 }

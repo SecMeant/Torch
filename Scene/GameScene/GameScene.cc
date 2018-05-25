@@ -34,7 +34,7 @@ sceneID GameScene::eventLoop()
 
 		this->parentWindow->clear();
 		this->parentWindow->draw(this->background);
-		this->level.drawAll(*parentWindow);
+		this->drawObjects();
 		this->player.updatePosition();
 		this->player.updateOrientation();
 		this->drawPlayer();
@@ -85,40 +85,63 @@ void GameScene::drawPlayer()
 
 	// Drawing light texture
 	auto frame = this->player.light.getFrame();
-	frame.setPosition(this->player.defaultPosition.first - 6,
-			              this->player.defaultPosition.second + 15 /* Bottom texture offset */);
+	frame.setPosition(this->player.defPosx - 6,
+			              this->player.defPosy + 15/* Bottom texture offset */);
 	this->parentWindow->draw(frame);
 
 	if (this->player.Moveable::direction == Direction::W)
 	{
 		// Drawing torch texture
 		frame = this->player.torch.getFrame();
-		frame.setPosition(this->player.defaultPosition.first - 6,
-											this->player.defaultPosition.second - 8);
+		frame.setPosition(this->player.defPosx - 6,
+											this->player.defPosy - 8);
 		this->parentWindow->draw(frame);
 
 		// Drawing player texture
 		frame = this->player.playerSprite.getFrame();
-		frame.setPosition(this->player.defaultPosition.first,
-				              this->player.defaultPosition.second);
+		frame.setPosition(this->player.defPosx,
+				              this->player.defPosy);
 		this->parentWindow->draw(frame);
 	}
 	else
 	{
 		// Drawing player texture
 		frame = this->player.playerSprite.getFrame();
-		frame.setPosition(this->player.defaultPosition.first,
-				              this->player.defaultPosition.second);
+		frame.setPosition(this->player.defPosx,
+				              this->player.defPosy);
 		this->parentWindow->draw(frame);
 
 		// Drawing torch texture
 		frame = this->player.torch.getFrame();
-		frame.setPosition(this->player.defaultPosition.first - 6,
-											this->player.defaultPosition.second - 6);
+		frame.setPosition(this->player.defPosx - 6,
+											this->player.defPosy - 6);
 		this->parentWindow->draw(frame);
 	}
 
 	return;
+}
+
+void GameScene::drawObjects()
+{
+	sf::Sprite sprite;
+
+	for(const auto& obj:this->level.getObjects())
+	{
+		auto posx = obj.x*this->level.defaultTileWidth - this->player.position.x;
+		auto posy = obj.y*this->level.defaultTileHeight - this->player.position.y;
+		if(obj.id == 0)
+		{
+			sprite.setTexture(TextureManager::wall);
+			sprite.setPosition(posx, posy);
+			this->parentWindow->draw(sprite);
+		}
+		else if(obj.id == 1)
+		{
+			sprite.setTexture(TextureManager::box);
+			sprite.setPosition(posx, posy);
+			this->parentWindow->draw(sprite);
+		}
+	}
 }
 
 sceneID GameScene::switchScene()

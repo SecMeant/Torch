@@ -35,8 +35,8 @@ public:
 	struct mapObject
 	{
 		uint32_t id;
-		uint32_t x;
-		uint32_t y;
+		float x;
+		float y;
 	};
 
 private:
@@ -48,6 +48,11 @@ public:
 	Level() = default;
 
 	void loadMap(const char *mapfilepath);
+	void drawAll(sf::RenderWindow &wnd);
+	
+	inline const std::vector<mapObject>& getObjects()
+	{return this->objects;}
+
 	void printObjects();
 };
 

@@ -21,7 +21,11 @@ private:
 
 	sceneID handleKeyPressed(const sf::Event &kev);
 
+	bool checkPlayerCollisions();
+
+	/* DRAWING HELPER METHODS */
 	void drawPlayer();
+	void drawObjects();
 public:
 	explicit GameScene(const std::shared_ptr<sf::RenderWindow> &wnd);
 
