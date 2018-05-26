@@ -35,7 +35,8 @@ sceneID GameScene::eventLoop()
 		this->parentWindow->clear();
 		this->parentWindow->draw(this->background);
 		this->drawObjects();
-		this->player.updatePosition();
+		this->playerMoveIfValid();
+		this->player.updateDirections();
 		this->player.updateOrientation();
 		this->drawPlayer();
 		this->parentWindow->display();
@@ -77,6 +78,27 @@ sceneID GameScene::handleKeyPressed
 	return ret;
 }
 
+void GameScene::playerMoveIfValid()
+{
+	auto newPos = this->player.calcNewPosition();
+	if(this->isMoveLegal(newPos))
+		this->player.position = newPos;
+}
+
+bool GameScene::isMoveLegal(sf::Vector2f pos)
+{
+	sf::FloatRect newRect(pos, {16,22});
+
+	for(const auto& obj:this->level.getObjects())
+	{
+		sf::FloatRect objRect({obj.x, obj.y},{32,32});
+		if(newRect.intersects(objRect))
+			return false;
+	}
+
+	return true;
+}
+
 void GameScene::drawPlayer()
 {
 	this->player.torch.update();
@@ -85,36 +107,36 @@ void GameScene::drawPlayer()
 
 	// Drawing light texture
 	auto frame = this->player.light.getFrame();
-	frame.setPosition(this->player.defPosx - 6,
-			              this->player.defPosy + 15/* Bottom texture offset */);
+	frame.setPosition(this->defShiftx - 6,
+			              this->defShifty + 15/* Bottom texture offset */);
 	this->parentWindow->draw(frame);
 
 	if (this->player.Moveable::direction == Direction::W)
 	{
 		// Drawing torch texture
 		frame = this->player.torch.getFrame();
-		frame.setPosition(this->player.defPosx - 6,
-											this->player.defPosy - 8);
+		frame.setPosition(this->defShiftx - 6,
+											this->defShifty - 8);
 		this->parentWindow->draw(frame);
 
 		// Drawing player texture
 		frame = this->player.playerSprite.getFrame();
-		frame.setPosition(this->player.defPosx,
-				              this->player.defPosy);
+		frame.setPosition(this->defShiftx,
+				              this->defShifty);
 		this->parentWindow->draw(frame);
 	}
 	else
 	{
 		// Drawing player texture
 		frame = this->player.playerSprite.getFrame();
-		frame.setPosition(this->player.defPosx,
-				              this->player.defPosy);
+		frame.setPosition(this->defShiftx,
+				              this->defShifty);
 		this->parentWindow->draw(frame);
 
 		// Drawing torch texture
 		frame = this->player.torch.getFrame();
-		frame.setPosition(this->player.defPosx - 6,
-											this->player.defPosy - 6);
+		frame.setPosition(this->defShiftx - 6,
+											this->defShifty - 6);
 		this->parentWindow->draw(frame);
 	}
 
@@ -127,8 +149,8 @@ void GameScene::drawObjects()
 
 	for(const auto& obj:this->level.getObjects())
 	{
-		auto posx = obj.x*this->level.defaultTileWidth - this->player.position.x;
-		auto posy = obj.y*this->level.defaultTileHeight - this->player.position.y;
+		auto posx = obj.x*this->level.defaultTileWidth - this->player.position.x + this->defShiftx;
+		auto posy = obj.y*this->level.defaultTileHeight - this->player.position.y + this->defShifty;
 		if(obj.id == 0)
 		{
 			sprite.setTexture(TextureManager::wall);

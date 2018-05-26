@@ -5,21 +5,28 @@ Moveable::Moveable()
 {}
 
 void Moveable::set
-(sf::Vector2f p, Direction d)
+(sf::Vector2f p, sf::Vector2f s, Direction d)
 {
 	this->position = p;
+	this->size = s;
 	this->direction = d;
 }
 
-void Moveable::updatePosition()
+sf::Vector2f Moveable::calcNewPosition()
 {
+	sf::Vector2f newPos = this->position;
 	auto dt = this->clock.getElapsedTime().asSeconds();
-
-	this->position.x += this->Hspeed*dt;
-	this->position.y += this->Vspeed*dt;
+	
+	newPos.x += this->Hspeed*dt;
+	newPos.y += this->Vspeed*dt;
 
 	this->clock.restart();
+	
+	return newPos;
+}
 
+void Moveable::updateDirections()
+{
 	// Resets velocities
 	this->stop();
 
@@ -84,3 +91,7 @@ void Moveable::move
 			break;
 	}
 }
+
+
+
+

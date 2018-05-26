@@ -2,8 +2,7 @@
 
 void Level::loadMap(FILE *mapfile)
 {
-	auto ret = fread(&this->mapHeader, sizeof(this->mapHeader), 1
-			             ,mapfile);
+	auto ret = fread(&this->mapHeader, sizeof(this->mapHeader), 1, mapfile);
 
 	if(not ret)
 	{

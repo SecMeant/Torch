@@ -14,6 +14,11 @@
 
 class GameScene:public Scene
 {
+public:
+	// used to shift point (0,0) on screen to the middle
+	static constexpr float defShiftx = 400;
+	static constexpr float defShifty = 400;
+
 private:
 	Player player;
 	Level level;
@@ -21,7 +26,9 @@ private:
 
 	sceneID handleKeyPressed(const sf::Event &kev);
 
-	bool checkPlayerCollisions();
+	void playerMoveIfValid();
+
+	bool isMoveLegal(sf::Vector2f pos);
 
 	/* DRAWING HELPER METHODS */
 	void drawPlayer();

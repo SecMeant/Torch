@@ -2,6 +2,7 @@
 #define MOVEABLE_H
 
 #include "../../utility/stdshared.hpp"
+#include "../../Level/Level.hpp"
 
 #include <stdint.h>
 
@@ -10,14 +11,13 @@
 class Moveable
 {
 public:
-	static constexpr float defPosx = 400;
-	static constexpr float defPosy = 400;
 	static constexpr float defRunSpeed = 175.0f;
 
 	// Used to calculate movement according to time passed
 	sf::Clock clock;
 
 	sf::Vector2f position;
+	sf::Vector2f size;
 	Direction direction;
 
 	Moveable();
@@ -28,11 +28,14 @@ public:
 	// Horizontal speed
 	float Hspeed;
 
-	void set(sf::Vector2f p, Direction d);
+	void set(sf::Vector2f p, sf::Vector2f s, Direction d);
+
+	// Calculates new position
+	sf::Vector2f calcNewPosition();
 
 	// Updates position according to forces and
 	// speeds aplied to this object
-	void updatePosition();
+	void updateDirections();
 
 	// Sets velocity to 0
 	void stop();
