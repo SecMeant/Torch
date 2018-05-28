@@ -19,6 +19,7 @@ public:
 	static sf::Texture wizard;
 	static sf::Texture light;
 	static sf::Texture torch;
+	static sf::Texture darkness;
 	static sf::Texture wall;
 	static sf::Texture box;
 	
@@ -39,6 +40,9 @@ public:
 
 	static constexpr const char *torchPath
 		= "./assets/torch.png";
+
+	static constexpr const char *darknessPath
+		= "./assets/darkness.png";
 
 	static constexpr const char *wallPath
 		= "./assets/map/wall.png";

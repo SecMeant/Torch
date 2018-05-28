@@ -6,6 +6,7 @@ sf::Texture TextureManager::mainsceneBackground;
 sf::Texture TextureManager::wizard;
 sf::Texture TextureManager::light;
 sf::Texture TextureManager::torch;
+sf::Texture TextureManager::darkness;
 sf::Texture TextureManager::wall;
 sf::Texture TextureManager::box;
 
@@ -29,6 +30,7 @@ void TextureManager::loadTextures()
 	TextureManager::wizard.loadFromFile(this->wizardPath);
 	TextureManager::light.loadFromFile(this->lightPath);
 	TextureManager::torch.loadFromFile(this->torchPath);
+	TextureManager::darkness.loadFromFile(this->darknessPath);
 	TextureManager::wall.loadFromFile(this->wallPath);
 	TextureManager::box.loadFromFile(this->boxPath);
 }
