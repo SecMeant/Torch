@@ -8,7 +8,14 @@ f.write(b'TM') # signature
 f.write(struct.pack("II",30,40)) # map size
 
 # object list
-addObject(f, 0, 3, 3)
-addObject(f, 0, 4, 5)
+for i in range(0,21):
+  addObject(f, 0, i, 0)
+
+for j in range(0,20):
+  addObject(f, 0, 0, j)
+  addObject(f, 0, 20, j)
+
+for i in range(0,21):
+  addObject(f, 0, i, 20)
 
 f.close()

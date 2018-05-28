@@ -7,6 +7,9 @@ GameScene::GameScene(const std::shared_ptr<sf::RenderWindow> &wnd)
 	this->setBackground(TextureManager::gamesceneBackground);
 
 	this->level.loadMap("./Level/mapfiles/test.map");
+
+	this->player.position.x = 50;
+	this->player.position.y = 50;
 }
 
 sceneID GameScene::eventLoop()
@@ -81,10 +84,8 @@ sceneID GameScene::handleKeyPressed
 void GameScene::playerMoveIfValid()
 {
 	sf::Vector2f newPos = this->player.calcNewPosition();
-	printf("%f %f\n", newPos.x, newPos.y);
 	if(this->isMoveLegal(newPos))
 	{
-		puts("Valid move");
 		this->player.position = newPos;
 	}
 }
@@ -172,8 +173,6 @@ void GameScene::drawObjects()
 sceneID GameScene::switchScene()
 {
 	puts("Switching to GAMESCENE");
-
-	this->level.printObjects();
-
+	
 	return this->eventLoop();
 }
