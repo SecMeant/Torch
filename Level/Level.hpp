@@ -36,6 +36,14 @@ public:
 		uint32_t id;
 		float x;
 		float y;
+
+		sf::FloatRect getObjectRange() const
+		{
+			return sf::FloatRect(this->x*Level::defaultTileWidth,
+					                 this->y*Level::defaultTileHeight,
+													 Level::defaultTileWidth,
+													 Level::defaultTileHeight);
+		}
 	};
 	#pragma pack(pop)
 

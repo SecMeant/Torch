@@ -80,9 +80,13 @@ sceneID GameScene::handleKeyPressed
 
 void GameScene::playerMoveIfValid()
 {
-	auto newPos = this->player.calcNewPosition();
+	sf::Vector2f newPos = this->player.calcNewPosition();
+	printf("%f %f\n", newPos.x, newPos.y);
 	if(this->isMoveLegal(newPos))
+	{
+		puts("Valid move");
 		this->player.position = newPos;
+	}
 }
 
 bool GameScene::isMoveLegal(sf::Vector2f pos)
@@ -91,8 +95,7 @@ bool GameScene::isMoveLegal(sf::Vector2f pos)
 
 	for(const auto& obj:this->level.getObjects())
 	{
-		sf::FloatRect objRect({obj.x, obj.y},{32,32});
-		if(newRect.intersects(objRect))
+		if(newRect.intersects(obj.getObjectRange()))
 			return false;
 	}
 
