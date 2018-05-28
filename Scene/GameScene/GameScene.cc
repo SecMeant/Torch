@@ -153,8 +153,19 @@ void GameScene::drawObjects()
 
 	for(const auto& obj:this->level.getObjects())
 	{
-		auto posx = obj.x*this->level.defaultTileWidth - this->player.position.x + this->defShiftx;
-		auto posy = obj.y*this->level.defaultTileHeight - this->player.position.y + this->defShifty;
+		float posx;
+		posx  = obj.x*this->level.defaultTileWidth;
+		posx -= this->player.position.x;
+		posx += this->defShiftx;
+
+		float posy;
+		posy = obj.y*this->level.defaultTileHeight;
+		posy -= this->player.position.y;
+		posy += this->defShifty;
+
+		if(not this->player.isInRadius(obj))
+			continue;
+
 		if(obj.id == 0)
 		{
 			sprite.setTexture(TextureManager::wall);

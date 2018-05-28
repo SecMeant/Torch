@@ -44,6 +44,12 @@ public:
 													 Level::defaultTileWidth,
 													 Level::defaultTileHeight);
 		}
+
+		sf::Vector2f getObjectCoords() const
+		{
+			return sf::Vector2f(this->x*Level::defaultTileWidth,
+					                this->y*Level::defaultTileHeight);
+		}
 	};
 	#pragma pack(pop)
 

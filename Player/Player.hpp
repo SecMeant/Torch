@@ -3,10 +3,11 @@
 
 #include "../Interfaces/Moveable/Moveable.hpp"
 #include "../TextureManager/DynamicSprite/MotionSprite/MotionSprite.hpp"
+#include "../Interfaces/LightSource/LightSource.hpp"
 
 #include <stdint.h>
 
-class Player:public Moveable
+class Player:public Moveable, public LightSource
 {
 public:
 	mutable DynamicSprite torch;

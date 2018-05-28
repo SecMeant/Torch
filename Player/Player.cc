@@ -1,7 +1,8 @@
 #include "Player.hpp"
 
 Player::Player()
-:torch(TextureManager::torch, 0, 0, 9, 15, 3, 0.25f),
+:LightSource(this->position.x, this->position.y, 300.0f),
+ torch(TextureManager::torch, 0, 0, 9, 15, 3, 0.25f),
  light(TextureManager::light, 0, 0, 40, 40, 5, 0.25f, 2, 2),
  playerSprite(this->direction)
 {
