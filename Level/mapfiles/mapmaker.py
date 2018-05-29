@@ -1,21 +1,27 @@
 import struct
 
-def addObject(mapfile, objectID, x, y):
-  f.write(struct.pack("Iff", objectID, x, y))
+def addObject(mapfile, objid, x, y):
+  print(objid, x, y)
+  mapfile.write(struct.pack("Iff", objid, x, y))
+
+def mttomap(mt, mapfile):
+  x = 0
+  y = 0
+  for line in mt:
+    x = 0
+    for obj in line:
+      if chr(obj) == 'X':
+       addObject(mapfile,0,x,y)
+      if chr(obj) == 'B':
+       addObject(mapfile,1,x,y)
+      x+=1
+    y+=1
 
 f = open("test.map","wb")
 f.write(b'TM') # signature
 f.write(struct.pack("II",30,40)) # map size
 
-# object list
-for i in range(0,21):
-  addObject(f, 0, i, 0)
-
-for j in range(0,20):
-  addObject(f, 0, 0, j)
-  addObject(f, 0, 20, j)
-
-for i in range(0,21):
-  addObject(f, 0, i, 20)
+mtInst = open("map.mt","rb")
+mttomap(mtInst, f)
 
 f.close()

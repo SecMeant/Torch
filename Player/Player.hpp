@@ -16,6 +16,8 @@ public:
 
 	Player();
 
+	void scaleLightRadius(float scaleFactor);
+
 	// Handles texture changing according to movement
 	void updateOrientation();
 };

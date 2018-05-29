@@ -70,9 +70,7 @@ sceneID GameScene::handleKeyPressed
 			break;
 
 		case sf::Keyboard::Space:
-			this->player.playerSprite.currentAnimation
-				= MotionSprite::spriteID::idle;
-			this->player.stop();
+			this->player.scaleLightRadius(1.5f);
 
 		default:
 			break;
@@ -184,6 +182,7 @@ void GameScene::drawObjects()
 sceneID GameScene::switchScene()
 {
 	puts("Switching to GAMESCENE");
-	
+	this->level.printObjects();
+
 	return this->eventLoop();
 }

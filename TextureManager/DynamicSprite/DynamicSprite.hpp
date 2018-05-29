@@ -34,6 +34,8 @@ public:
 	 int32_t tWidth, int32_t tHeight, int32_t numberOfFrames, float cooldown,
 	 float scaleFactorX = 2.0f, float scaleFactorY = 2.0f);
 
+	void scaleSprite(float scaleFactor);
+	
 	void update();
 	sf::Sprite& getFrame();
 };

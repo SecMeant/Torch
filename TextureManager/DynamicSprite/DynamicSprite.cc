@@ -27,6 +27,12 @@ DynamicSprite::DynamicSprite
 	this->clock.restart();
 }
 
+void DynamicSprite::scaleSprite(float scaleFactor)
+{
+	this->scaleFactorX*=scaleFactor;
+	this->scaleFactorY*=scaleFactor;
+}
+
 void DynamicSprite::update()
 {
 	if (this->clock.getElapsedTime().asSeconds() > this->cooldown)
