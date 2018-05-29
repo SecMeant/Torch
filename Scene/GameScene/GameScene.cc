@@ -23,7 +23,7 @@ sceneID GameScene::eventLoop()
 				this->parentWindow->close();
 			
 			if (event.type == sf::Event::MouseButtonPressed)
-				return {sceneID::mainmenu};
+				static_cast<void> (1337); // nop
 
 			if(event.type == sf::Event::KeyPressed)
 			{
@@ -71,6 +71,11 @@ sceneID GameScene::handleKeyPressed
 
 		case sf::Keyboard::Space:
 			this->player.scaleLightRadius(1.5f);
+			break;
+
+		case sf::Keyboard::Escape:
+			ret = sceneID::mainmenu;
+			break;
 
 		default:
 			break;
