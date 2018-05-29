@@ -5,7 +5,7 @@ bool LightSource::isInRadius(sf::FloatRect obj) const
 {
 	sf::Vector2f p1(posx, posy);
 	sf::Vector2f p2(obj.left, obj.top);
-	if(getDistanceBetween(p1,p2) < this->lightRadius)
+	if(getDistanceBetween(p1,p2) < this->radius)
 		return false;
 	return true;
 }
@@ -14,7 +14,7 @@ bool LightSource::isInRadius(const Level::mapObject &obj) const
 {
 	sf::Vector2f p1(posx, posy);
 	sf::Vector2f p2 = obj.getObjectCoords();
-	if(getDistanceBetween(p1,p2) < this->lightRadius)
+	if(getDistanceBetween(p1,p2) < this->radius)
 		return true;
 	return false;
 }

@@ -4,6 +4,7 @@
 #include "../Scene.hpp"
 #include "../../Player/Player.hpp"
 #include "../../Level/Level.hpp"
+#include "../../LightManager/LightManager.hpp"
 
 #include "../../utility/complexTypes.hpp"
 
@@ -12,7 +13,7 @@
 #include <vector>
 #include <memory>
 
-class GameScene:public Scene
+class GameScene:public Scene, public LightManager
 {
 public:
 	// used to shift point (0,0) on screen to the middle

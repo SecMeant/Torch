@@ -9,10 +9,10 @@ class LightSource
 public:
 	float& posx;
 	float& posy;
-	float lightRadius;
+	float radius;
 
 	LightSource(float& px, float& py, float lr)
-	:posx(px), posy(py), lightRadius(lr){}
+	:posx(px), posy(py), radius(lr){}
 	
 	// arg Obj should have origin set to its middle
 	bool isInRadius(sf::FloatRect obj) const;

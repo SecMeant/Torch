@@ -1,7 +1,7 @@
 #include "GameScene.hpp"
 
 GameScene::GameScene(const std::shared_ptr<sf::RenderWindow> &wnd)
-:Scene(wnd)
+:Scene(wnd), LightManager(wnd->getSize())
 {
 	puts("GAMESCENE CREATION MESSAGE");
 	this->setBackground(TextureManager::gamesceneBackground);
@@ -10,6 +10,7 @@ GameScene::GameScene(const std::shared_ptr<sf::RenderWindow> &wnd)
 
 	this->player.position.x = 50;
 	this->player.position.y = 50;
+	this->LightManager::registerLightSource(&this->player);
 }
 
 sceneID GameScene::eventLoop()
@@ -42,6 +43,9 @@ sceneID GameScene::eventLoop()
 		this->player.updateDirections();
 		this->player.updateOrientation();
 		this->drawPlayer();
+		this->LightManager::applyDarkness(*this->parentWindow,
+			this->player.position.x - this->defShiftx,
+			this->player.position.y - this->defShifty);
 		this->parentWindow->display();
 	}
 	return {sceneID::none};
@@ -166,20 +170,23 @@ void GameScene::drawObjects()
 		posy -= this->player.position.y;
 		posy += this->defShifty;
 
-		if(not this->player.isInRadius(obj))
-			continue;
-
-		if(obj.id == 0)
+		for(const auto light:this->LightManager::getLightSources())
 		{
-			sprite.setTexture(TextureManager::wall);
-			sprite.setPosition(posx, posy);
-			this->parentWindow->draw(sprite);
-		}
-		else if(obj.id == 1)
-		{
-			sprite.setTexture(TextureManager::box);
-			sprite.setPosition(posx, posy);
-			this->parentWindow->draw(sprite);
+			if(light->isInRadius(obj))
+			{
+				if(obj.id == 0)
+				{
+					sprite.setTexture(TextureManager::wall);
+					sprite.setPosition(posx, posy);
+					this->parentWindow->draw(sprite);
+				}
+				else if(obj.id == 1)
+				{
+					sprite.setTexture(TextureManager::box);
+					sprite.setPosition(posx, posy);
+					this->parentWindow->draw(sprite);
+				}
+			}
 		}
 	}
 }
