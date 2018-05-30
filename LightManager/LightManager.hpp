@@ -12,6 +12,8 @@ private:
 	sf::RenderTexture darkness;
 
 	std::vector<LightSource*> lightSources;
+
+	sf::Shader shader;
 public:
 	LightManager(sf::Vector2u windowSize);
 

@@ -26,7 +26,8 @@ void Level::loadMap(FILE *mapfile)
 
 bool Level::fetchObjectFromFile(FILE *mapfile)
 {
-	mapObject obj;
+	struct mapObject obj;
+	MapObject mobj; 
 	auto ret = fread(&obj, sizeof(mapObject), 1, mapfile);
 	
 	if(not ret)
@@ -34,8 +35,20 @@ bool Level::fetchObjectFromFile(FILE *mapfile)
 		puts("Error while fetching object from map file.");
 		return false;
 	}
+	
+	if(obj.id == 0)
+		mobj.texture = &TextureManager::wall;
+	else if(obj.id == 1)
+		mobj.texture = &TextureManager::box;
+	else
+		mobj.texture = &TextureManager::nulltexture;
 
-	this->objects.push_back(obj);
+	mobj.position.x = obj.x;
+	mobj.position.y = obj.y;
+	mobj.size.x = 32;
+	mobj.size.y = 32;
+
+	this->objects.push_back(mobj);
 	return true;
 }
 
@@ -57,8 +70,9 @@ void Level::printObjects()
 	puts("Object list:");
 	for(const auto& obj:this->objects)
 	{
-		printf("id: %u\t x: %f\t y: %f\n",
-				   obj.id, obj.x, obj.y);
+		printf("x: %f\t y: %f width: %f height: %f\n",
+				    obj.position.x, obj.position.y,
+						obj.size.x, obj.size.y);
 	}
 }
 

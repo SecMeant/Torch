@@ -3,6 +3,7 @@
 
 #include "../../utility/stdshared.hpp"
 #include "../../Level/Level.hpp"
+#include "../../Object/Object.hpp"
 
 class LightSource
 {
@@ -16,7 +17,7 @@ public:
 	
 	// arg Obj should have origin set to its middle
 	bool isInRadius(sf::FloatRect obj) const;
-	bool isInRadius(const Level::mapObject &obj) const;
+	bool isInRadius(const Object &obj) const;
 
 	static float getDistanceBetween
 	(sf::Vector2f v1, sf::Vector2f v2);

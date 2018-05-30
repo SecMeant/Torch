@@ -1,6 +1,7 @@
 #include "TextureManager.hpp"
 
 sf::Font TextureManager::defaultFont;
+sf::Texture TextureManager::nulltexture;
 sf::Texture TextureManager::gamesceneBackground;
 sf::Texture TextureManager::mainsceneBackground;
 sf::Texture TextureManager::wizard;
@@ -25,6 +26,7 @@ TextureManager::TextureManager()
 
 void TextureManager::loadTextures()
 {
+	TextureManager::nulltexture.loadFromFile(this->nulltexPath);
 	TextureManager::gamesceneBackground.loadFromFile(this->gamesceneBackgroundPath);
 	TextureManager::mainsceneBackground.loadFromFile(this->mainsceneBackgroundPath);
 	TextureManager::wizard.loadFromFile(this->wizardPath);

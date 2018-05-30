@@ -6,6 +6,7 @@
 #include <string.h>
 
 #include "../utility/stdshared.hpp"
+#include "../Object/MapObject/MapObject.hpp"
 
 class Level
 {
@@ -14,6 +15,7 @@ public:
 	static constexpr int32_t defaultHeight     = 25;
 	static constexpr int32_t defaultTileWidth  = 32;
 	static constexpr int32_t defaultTileHeight = 32;
+
 
 	typedef unsigned char byte;
 
@@ -36,27 +38,13 @@ public:
 		uint32_t id;
 		float x;
 		float y;
-
-		sf::FloatRect getObjectRange() const
-		{
-			return sf::FloatRect(this->x*Level::defaultTileWidth,
-					                 this->y*Level::defaultTileHeight,
-													 Level::defaultTileWidth,
-													 Level::defaultTileHeight);
-		}
-
-		sf::Vector2f getObjectCoords() const
-		{
-			return sf::Vector2f(this->x*Level::defaultTileWidth,
-					                this->y*Level::defaultTileHeight);
-		}
 	};
 	#pragma pack(pop)
 
 private:
 	void loadMap(FILE *mapfile);
 	bool fetchObjectFromFile(FILE *mapfile);
-	std::vector<mapObject> objects;
+	std::vector<MapObject> objects;
 
 public:
 	Level() = default;
@@ -64,7 +52,7 @@ public:
 	void loadMap(const char *mapfilepath);
 	void drawAll(sf::RenderWindow &wnd);
 	
-	inline const std::vector<mapObject>& getObjects()
+	inline const std::vector<MapObject>& getObjects()
 	{return this->objects;}
 
 	void printObjects();

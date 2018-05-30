@@ -45,7 +45,7 @@ void LightManager::applyDarkness
 	static sf::CircleShape circle;
 
 	circle.setFillColor(sf::Color::Transparent);
-	this->darkness.clear(sf::Color::Black);
+	this->darkness.clear(sf::Color(15,15,15));
 	for(const auto light:this->lightSources)
 	{
 		float posx;

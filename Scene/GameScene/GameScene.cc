@@ -161,12 +161,12 @@ void GameScene::drawObjects()
 	for(const auto& obj:this->level.getObjects())
 	{
 		float posx;
-		posx  = obj.x*this->level.defaultTileWidth;
+		posx  = obj.position.x*this->level.defaultTileWidth;
 		posx -= this->player.position.x;
 		posx += this->defShiftx;
 
 		float posy;
-		posy = obj.y*this->level.defaultTileHeight;
+		posy = obj.position.y*this->level.defaultTileHeight;
 		posy -= this->player.position.y;
 		posy += this->defShifty;
 
@@ -174,18 +174,9 @@ void GameScene::drawObjects()
 		{
 			if(light->isInRadius(obj))
 			{
-				if(obj.id == 0)
-				{
-					sprite.setTexture(TextureManager::wall);
-					sprite.setPosition(posx, posy);
-					this->parentWindow->draw(sprite);
-				}
-				else if(obj.id == 1)
-				{
-					sprite.setTexture(TextureManager::box);
-					sprite.setPosition(posx, posy);
-					this->parentWindow->draw(sprite);
-				}
+				sprite.setTexture(*obj.texture);
+				sprite.setPosition(posx, posy);
+				this->parentWindow->draw(sprite);
 			}
 		}
 	}
@@ -194,7 +185,6 @@ void GameScene::drawObjects()
 sceneID GameScene::switchScene()
 {
 	puts("Switching to GAMESCENE");
-	this->level.printObjects();
 
 	return this->eventLoop();
 }

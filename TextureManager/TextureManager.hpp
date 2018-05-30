@@ -14,6 +14,7 @@ private:
 	inline void loadFonts();
 public:
 	static sf::Font defaultFont;
+	static sf::Texture nulltexture;
 	static sf::Texture gamesceneBackground;
 	static sf::Texture mainsceneBackground;
 	static sf::Texture wizard;
@@ -25,6 +26,9 @@ public:
 	
 	static constexpr const char *defaultFontPath
 		= "./assets/font/orange_juice.ttf";
+
+	static constexpr const char *nulltexPath
+		= "./assets/nulltex.png";
 
 	static constexpr const char *gamesceneBackgroundPath
 		= "./assets/gamesceneBackground.png";
