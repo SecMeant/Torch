@@ -14,7 +14,8 @@ public:
 	Object():texture(&TextureManager::nulltexture){}
 	Object(sf::Texture* tex, sf::Vector2f pos={0,0},
 			   sf::Vector2f s={32,32})
-	:texture(tex), position(pos), size(s){}
+	:texture(tex), position(pos), size(s)
+	{}
 
 	virtual void use();
 	virtual void drop();
@@ -22,6 +23,8 @@ public:
 
 	sf::FloatRect getObjectRange() const;
 	sf::Vector2f getObjectCoords() const;
+
+	virtual ~Object() = default;
 };
 
 #endif // OBJECT_H

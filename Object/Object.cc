@@ -17,16 +17,16 @@ void Object::pickup()
 
 sf::FloatRect Object::getObjectRange() const
 {
-	return sf::FloatRect(this->position.x*this->size.x,
-											 this->position.y*this->size.y,
+	return sf::FloatRect(this->position.x,
+											 this->position.y,
 											 this->size.x,
 											 this->size.y);
 }
 
 sf::Vector2f Object::getObjectCoords() const
 {
-	return sf::Vector2f(this->position.x*this->size.x,
-											this->position.y*this->size.y);
+	return sf::Vector2f(this->position.x,
+											this->position.y);
 }
 
 

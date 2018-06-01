@@ -12,8 +12,15 @@ def mttomap(mt, mapfile):
     for obj in line:
       if chr(obj) == 'X':
        addObject(mapfile,0,x,y)
-      if chr(obj) == 'B':
+      elif chr(obj) == 'B':
        addObject(mapfile,1,x,y)
+      elif chr(obj) == 'L':
+       addObject(mapfile,2,x,y)
+      elif chr(obj) == 'O':
+       x+=1
+       continue
+      else:
+       addObject(mapfile,1337,x,y);
       x+=1
     y+=1
 

@@ -2,17 +2,16 @@
 #define LIGHTSOURCE_H
 
 #include "../../utility/stdshared.hpp"
-#include "../../Level/Level.hpp"
 #include "../../Object/Object.hpp"
 
 class LightSource
 {
 public:
-	float& posx;
-	float& posy;
+	float *posx;
+	float *posy;
 	float radius;
 
-	LightSource(float& px, float& py, float lr)
+	LightSource(float *px, float *py, float lr)
 	:posx(px), posy(py), radius(lr){}
 	
 	// arg Obj should have origin set to its middle
@@ -21,6 +20,7 @@ public:
 
 	static float getDistanceBetween
 	(sf::Vector2f v1, sf::Vector2f v2);
+
 };
 
 #endif // LIGHTSOURCE_H

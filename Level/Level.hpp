@@ -4,9 +4,11 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>
+#include <memory>
 
 #include "../utility/stdshared.hpp"
-#include "../Object/MapObject/MapObject.hpp"
+#include "../LightManager/LightManager.hpp"
+#include "../Object/Object.hpp"
 
 class Level
 {
@@ -15,7 +17,6 @@ public:
 	static constexpr int32_t defaultHeight     = 25;
 	static constexpr int32_t defaultTileWidth  = 32;
 	static constexpr int32_t defaultTileHeight = 32;
-
 
 	typedef unsigned char byte;
 
@@ -42,17 +43,17 @@ public:
 	#pragma pack(pop)
 
 private:
-	void loadMap(FILE *mapfile);
-	bool fetchObjectFromFile(FILE *mapfile);
-	std::vector<MapObject> objects;
+	void loadMap(FILE *mapfile, LightManager *lm);
+	bool fetchObjectFromFile(FILE *mapfile, LightManager *lm);
+	std::vector<std::unique_ptr<Object> > objects;
 
 public:
-	Level() = default;
+	Level();
 
-	void loadMap(const char *mapfilepath);
+	void loadMap(const char *mapfilepath, LightManager *lm);
 	void drawAll(sf::RenderWindow &wnd);
 	
-	inline const std::vector<MapObject>& getObjects()
+	inline const std::vector<std::unique_ptr<Object> >& getObjects()
 	{return this->objects;}
 
 	void printObjects();

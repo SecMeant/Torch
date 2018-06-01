@@ -6,7 +6,8 @@ GameScene::GameScene(const std::shared_ptr<sf::RenderWindow> &wnd)
 	puts("GAMESCENE CREATION MESSAGE");
 	this->setBackground(TextureManager::gamesceneBackground);
 
-	this->level.loadMap("./Level/mapfiles/test.map");
+	this->level.loadMap("./Level/mapfiles/test.map",
+			                static_cast<LightManager *>(this));
 
 	this->player.position.x = 50;
 	this->player.position.y = 50;
@@ -103,7 +104,7 @@ bool GameScene::isMoveLegal(sf::Vector2f pos)
 
 	for(const auto& obj:this->level.getObjects())
 	{
-		if(newRect.intersects(obj.getObjectRange()))
+		if(newRect.intersects(obj->getObjectRange()))
 			return false;
 	}
 
@@ -161,20 +162,20 @@ void GameScene::drawObjects()
 	for(const auto& obj:this->level.getObjects())
 	{
 		float posx;
-		posx  = obj.position.x*this->level.defaultTileWidth;
+		posx  = obj->position.x;
 		posx -= this->player.position.x;
 		posx += this->defShiftx;
 
 		float posy;
-		posy = obj.position.y*this->level.defaultTileHeight;
+		posy = obj->position.y;
 		posy -= this->player.position.y;
 		posy += this->defShifty;
 
 		for(const auto light:this->LightManager::getLightSources())
 		{
-			if(light->isInRadius(obj))
+			if(light->isInRadius(*obj))
 			{
-				sprite.setTexture(*obj.texture);
+				sprite.setTexture(*obj->texture);
 				sprite.setPosition(posx, posy);
 				this->parentWindow->draw(sprite);
 			}
@@ -185,6 +186,12 @@ void GameScene::drawObjects()
 sceneID GameScene::switchScene()
 {
 	puts("Switching to GAMESCENE");
+
+	for(auto plight: this->getLightSources())
+	{
+		printf("%f %f %f\n",
+				*(plight->posx), *(plight->posy), plight->radius);
+	}
 
 	return this->eventLoop();
 }

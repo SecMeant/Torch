@@ -1,6 +1,10 @@
 #include "Level.hpp"
+#include "../Object/Torch/OTorch.hpp"
 
-void Level::loadMap(FILE *mapfile)
+Level::Level()
+{};
+
+void Level::loadMap(FILE *mapfile, LightManager *lm)
 {
 	auto ret = fread(&this->mapHeader, sizeof(this->mapHeader), 1, mapfile);
 
@@ -21,13 +25,13 @@ void Level::loadMap(FILE *mapfile)
 					this->mapHeader.mapWidth,
 					this->mapHeader.mapHeight);
 
-	while(this->fetchObjectFromFile(mapfile)){}
+	while(this->fetchObjectFromFile(mapfile, lm)){}
 }
 
-bool Level::fetchObjectFromFile(FILE *mapfile)
+bool Level::fetchObjectFromFile(FILE *mapfile, LightManager *lm)
 {
 	struct mapObject obj;
-	MapObject mobj; 
+	Object mobj; 
 	auto ret = fread(&obj, sizeof(mapObject), 1, mapfile);
 	
 	if(not ret)
@@ -36,23 +40,47 @@ bool Level::fetchObjectFromFile(FILE *mapfile)
 		return false;
 	}
 	
-	if(obj.id == 0)
-		mobj.texture = &TextureManager::wall;
-	else if(obj.id == 1)
-		mobj.texture = &TextureManager::box;
-	else
-		mobj.texture = &TextureManager::nulltexture;
+	// coords from file are in tile units
+	// Need to translate them
+	obj.x *= defaultTileWidth;
+	obj.y *= defaultTileHeight;
+
+	switch(obj.id)
+	{
+		case 0:
+			mobj.texture = &TextureManager::wall;
+			break;
+		case 1:
+			mobj.texture = &TextureManager::box;
+			break;
+		case 2:
+		{ // This will get rid of local variables
+		std::unique_ptr<Object> pobject(new OTorch(obj.x, obj.y));
+		
+		this->objects.push_back(std::move(pobject));
+
+		// First casting with dynamic cast to cast to 
+		// parent class when info about hierarchy is lost
+		// Second cast makes proper shift on ptr to get to
+		// derived class.
+		lm->registerLightSource(
+				static_cast<LightSource*>(
+					dynamic_cast<OTorch*>(this->objects.back().get())));
+		}
+		default:
+			mobj.texture = &TextureManager::nulltexture;
+	}
 
 	mobj.position.x = obj.x;
 	mobj.position.y = obj.y;
-	mobj.size.x = 32;
-	mobj.size.y = 32;
+	mobj.size.x = defaultTileWidth;
+	mobj.size.y = defaultTileHeight;
 
-	this->objects.push_back(mobj);
+	this->objects.push_back(std::make_unique<Object>(mobj));
 	return true;
 }
 
-void Level::loadMap(const char *mapfilepath)
+void Level::loadMap(const char *mapfilepath, LightManager *lm)
 {
 	FILE *f = fopen(mapfilepath, "rb");
 	
@@ -62,7 +90,7 @@ void Level::loadMap(const char *mapfilepath)
 		return;
 	}
 
-	this->loadMap(f);
+	this->loadMap(f, lm);
 }
 
 void Level::printObjects()
@@ -71,8 +99,8 @@ void Level::printObjects()
 	for(const auto& obj:this->objects)
 	{
 		printf("x: %f\t y: %f width: %f height: %f\n",
-				    obj.position.x, obj.position.y,
-						obj.size.x, obj.size.y);
+				    obj->position.x, obj->position.y,
+						obj->size.x, obj->size.y);
 	}
 }
 

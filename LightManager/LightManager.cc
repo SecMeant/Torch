@@ -45,15 +45,15 @@ void LightManager::applyDarkness
 	static sf::CircleShape circle;
 
 	circle.setFillColor(sf::Color::Transparent);
-	this->darkness.clear(sf::Color(15,15,15));
-	for(const auto light:this->lightSources)
+	this->darkness.clear(sf::Color(10,10,10));
+	for(const auto& light:this->lightSources)
 	{
 		float posx;
-		posx  = light->posx;
+		posx  = *light->posx;
 		posx -= originx;
 
 		float posy;
-		posy  = light->posy;
+		posy  = *light->posy;
 		posy -= originy;
 
 		circle.setRadius(light->radius);
