@@ -1,7 +1,6 @@
 import struct
 
 def addObject(mapfile, objid, x, y):
-  print(objid, x, y)
   mapfile.write(struct.pack("Iff", objid, x, y))
 
 def mttomap(mt, mapfile):

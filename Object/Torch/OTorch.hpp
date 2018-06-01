@@ -13,7 +13,6 @@ public:
 	OTorch(float x, float y);
 	OTorch(OTorch &t);
 	OTorch(OTorch &&t);
-
 };
 
 #endif // TORCH_H
