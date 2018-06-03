@@ -66,6 +66,7 @@ bool Level::fetchObjectFromFile(FILE *mapfile, LightManager *lm)
 		lm->registerLightSource(
 				static_cast<LightSource*>(
 					dynamic_cast<OTorch*>(this->objects.back().get())));
+		break;
 		}
 		default:
 			mobj.texture = &TextureManager::nulltexture;
