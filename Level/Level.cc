@@ -4,6 +4,10 @@
 Level::Level()
 {};
 
+Level::~Level()
+{this->freeObjects();}
+
+
 void Level::loadMap(FILE *mapfile, LightManager *lm)
 {
 	auto ret = fread(&this->mapHeader, sizeof(this->mapHeader), 1, mapfile);
@@ -24,6 +28,8 @@ void Level::loadMap(FILE *mapfile, LightManager *lm)
 			    (uint32_t)sizeof(_mapHeader),
 					this->mapHeader.mapWidth,
 					this->mapHeader.mapHeight);
+
+	this->objects.reserve(this->mapHeader.mapWidth*this->mapHeader.mapHeight);
 
 	while(this->fetchObjectFromFile(mapfile, lm)){}
 }
@@ -54,10 +60,8 @@ bool Level::fetchObjectFromFile(FILE *mapfile, LightManager *lm)
 			mobj.texture = &TextureManager::box;
 			break;
 		case 2:
-		{ // This will get rid of local variables
-		std::unique_ptr<Object> pobject(new OTorch(obj.x, obj.y));
-		
-		this->objects.push_back(std::move(pobject));
+
+		this->objects.push_back(new OTorch(obj.x, obj.y));
 
 		// First casting with dynamic cast to cast to 
 		// parent class when info about hierarchy is lost
@@ -65,9 +69,8 @@ bool Level::fetchObjectFromFile(FILE *mapfile, LightManager *lm)
 		// derived class.
 		lm->registerLightSource(
 				static_cast<LightSource*>(
-					dynamic_cast<OTorch*>(this->objects.back().get())));
+					dynamic_cast<OTorch*>(this->objects.back())));
 		break;
-		}
 		default:
 			mobj.texture = &TextureManager::nulltexture;
 	}
@@ -77,7 +80,7 @@ bool Level::fetchObjectFromFile(FILE *mapfile, LightManager *lm)
 	mobj.size.x = defaultTileWidth;
 	mobj.size.y = defaultTileHeight;
 
-	this->objects.push_back(std::make_unique<Object>(mobj));
+	this->objects.push_back(new Object(mobj));
 	return true;
 }
 

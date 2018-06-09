@@ -45,16 +45,21 @@ public:
 private:
 	void loadMap(FILE *mapfile, LightManager *lm);
 	bool fetchObjectFromFile(FILE *mapfile, LightManager *lm);
-	std::vector<std::unique_ptr<Object> > objects;
+	std::vector<Object* > objects;
 
 public:
 	Level();
 
+	~Level();
+
 	void loadMap(const char *mapfilepath, LightManager *lm);
 	void drawAll(sf::RenderWindow &wnd);
 	
-	inline const std::vector<std::unique_ptr<Object> >& getObjects()
+	inline const std::vector<Object*>& getObjects()
 	{return this->objects;}
+
+	inline void freeObjects()
+	{for (const auto& obj:objects) delete obj;}
 
 	void printObjects();
 };
