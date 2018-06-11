@@ -10,6 +10,7 @@ sf::Texture TextureManager::torch;
 sf::Texture TextureManager::darkness;
 sf::Texture TextureManager::wall;
 sf::Texture TextureManager::box;
+sf::Texture TextureManager::ground;
 
 int32_t TextureManager::lifecount = 0;
 
@@ -35,6 +36,7 @@ void TextureManager::loadTextures()
 	TextureManager::darkness.loadFromFile(this->darknessPath);
 	TextureManager::wall.loadFromFile(this->wallPath);
 	TextureManager::box.loadFromFile(this->boxPath);
+	TextureManager::ground.loadFromFile(this->floorPath);
 }
 
 void TextureManager::loadFonts()

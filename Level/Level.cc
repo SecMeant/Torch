@@ -72,6 +72,10 @@ bool Level::fetchObjectFromFile(FILE *mapfile, LightManager *lm)
 
 			//lm->registerLightSource(static_cast<LightSource*>(tobj));
 			break;
+		case 3:
+			mobj.texture = &TextureManager::ground;
+			mobj.isBlocking = false;
+			break;
 		default:
 			mobj.texture = &TextureManager::nulltexture;
 			mobj.isBlocking = false;

@@ -100,11 +100,9 @@ void GameScene::playerMoveIfValid()
 
 bool GameScene::isMoveLegal(sf::Vector2f pos)
 {
-	sf::FloatRect newRect(pos, {16,22});
-
 	// Convert to tile coords
 	pos.x = pos.x/32.0;
-	pos.y = pos.y/32.0;
+	pos.y = (pos.y+16)/32.0; // 16 is legs offset
 
 	// Player came to new tile in width
 	if(this->player.position.x/32.0 != pos.x)
@@ -114,7 +112,7 @@ bool GameScene::isMoveLegal(sf::Vector2f pos)
 	}
 
 	// Player came to new tile in height
-	if(this->player.position.y/32.0 != pos.y)
+	if((this->player.position.y)/32.0 != pos.y)
 	{
 		if(this->level.getObject(pos.x, pos.y)->isBlocking)
 			return false;

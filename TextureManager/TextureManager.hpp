@@ -23,6 +23,7 @@ public:
 	static sf::Texture darkness;
 	static sf::Texture wall;
 	static sf::Texture box;
+	static sf::Texture ground;
 	
 	static constexpr const char *defaultFontPath
 		= "./assets/font/orange_juice.ttf";
@@ -53,6 +54,9 @@ public:
 
 	static constexpr const char *boxPath
 		= "./assets/map/box.png";
+
+	static constexpr const char *floorPath
+		= "./assets/floor.png";
 
 	TextureManager();
 	~TextureManager();
