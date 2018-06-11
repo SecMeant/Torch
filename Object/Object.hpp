@@ -14,8 +14,13 @@ public:
 	sf::Vector2f position;
 	sf::Vector2f size;
 
+	// True if object should blocks movement
+	// False otherwise
+	bool isBlocking;
+
 	Object()
-	:texture(&TextureManager::nulltexture), position({defPosX,defPosY}){}
+	:texture(&TextureManager::nulltexture), position({defPosX,defPosY}),
+	 isBlocking(false){}
 
 	Object(sf::Texture* tex, sf::Vector2f pos={0,0},
 			   sf::Vector2f s={32,32})

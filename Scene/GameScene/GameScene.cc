@@ -102,12 +102,24 @@ bool GameScene::isMoveLegal(sf::Vector2f pos)
 {
 	sf::FloatRect newRect(pos, {16,22});
 
-	for(const auto& obj:this->level.getObjects())
+	// Convert to tile coords
+	pos.x = pos.x/32.0;
+	pos.y = pos.y/32.0;
+
+	// Player came to new tile in width
+	if(this->player.position.x/32.0 != pos.x)
 	{
-		if(newRect.intersects(obj->getObjectRange()))
+		if(this->level.getObject(pos.x, pos.y)->isBlocking)
 			return false;
 	}
 
+	// Player came to new tile in height
+	if(this->player.position.y/32.0 != pos.y)
+	{
+		if(this->level.getObject(pos.x, pos.y)->isBlocking)
+			return false;
+	}
+	
 	return true;
 }
 

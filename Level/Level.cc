@@ -57,13 +57,16 @@ bool Level::fetchObjectFromFile(FILE *mapfile, LightManager *lm)
 	{
 		case 0:
 			mobj.texture = &TextureManager::wall;
+			mobj.isBlocking = true;
 			break;
 		case 1:
 			mobj.texture = &TextureManager::box;
+			mobj.isBlocking = true;
 			break;
 		case 2:
 
 			tobj = new OTorch(obj.x * defaultTileWidth, obj.y * defaultTileHeight);
+			tobj->isBlocking = false;
 
 			this->insertObject(obj.x, obj.y, tobj);
 
@@ -71,6 +74,7 @@ bool Level::fetchObjectFromFile(FILE *mapfile, LightManager *lm)
 			break;
 		default:
 			mobj.texture = &TextureManager::nulltexture;
+			mobj.isBlocking = false;
 	}
 
 	mobj.position.x = obj.x * defaultTileWidth;
@@ -93,6 +97,8 @@ void Level::loadMap(const char *mapfilepath, LightManager *lm)
 	}
 
 	this->loadMap(f, lm);
+
+	fclose(f);
 }
 
 void Level::insertObject(uint32_t x, uint32_t y, Object* nobj)
