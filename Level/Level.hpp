@@ -10,6 +10,8 @@
 #include "../LightManager/LightManager.hpp"
 #include "../Object/Object.hpp"
 
+#include "../Tests/TestUnit.hpp"
+
 class Level
 {
 public:
@@ -64,6 +66,8 @@ public:
 	{for (const auto& obj:objects) delete obj;}
 
 	void printObjects();
+
+	friend class UnitTest;
 };
 
 #endif // LEVEL_H

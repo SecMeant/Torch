@@ -16,8 +16,7 @@ def mttomap(mt, mapfile):
       elif chr(obj) == 'L':
        addObject(mapfile,2,x,y)
       elif chr(obj) == 'O':
-       x+=1
-       continue
+       addObject(mapfile,3,x,y) # floor
       else:
        if chr(obj) == '\n' or chr(obj) == '\r':
          continue
