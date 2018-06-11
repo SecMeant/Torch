@@ -19,13 +19,15 @@ def mttomap(mt, mapfile):
        x+=1
        continue
       else:
+       if chr(obj) == '\n' or chr(obj) == '\r':
+         continue
        addObject(mapfile,1337,x,y);
       x+=1
     y+=1
 
 f = open("test.map","wb")
 f.write(b'TM') # signature
-f.write(struct.pack("II",30,40)) # map size
+f.write(struct.pack("II",62,17)) # map size
 
 mtInst = open("map.mt","rb")
 mttomap(mtInst, f)
