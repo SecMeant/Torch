@@ -53,10 +53,12 @@ public:
 	~Level();
 
 	void loadMap(const char *mapfilepath, LightManager *lm);
-	void drawAll(sf::RenderWindow &wnd);
 	
 	inline const std::vector<Object*>& getObjects()
 	{return this->objects;}
+
+	void insertObject(uint32_t x, uint32_t y, Object* nobj);
+	Object* getObject(uint32_t x, uint32_t y) const;
 
 	inline void freeObjects()
 	{for (const auto& obj:objects) delete obj;}

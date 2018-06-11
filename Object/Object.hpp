@@ -11,7 +11,9 @@ public:
 	sf::Vector2f position;
 	sf::Vector2f size;
 
-	Object():texture(&TextureManager::nulltexture){}
+	Object()
+	:texture(&TextureManager::nulltexture), position({13371337.0f,13371337.0f}){}
+
 	Object(sf::Texture* tex, sf::Vector2f pos={0,0},
 			   sf::Vector2f s={32,32})
 	:texture(tex), position(pos), size(s)

@@ -21,7 +21,6 @@ def mttomap(mt, mapfile):
       else:
        if chr(obj) == '\n' or chr(obj) == '\r':
          continue
-       addObject(mapfile,1337,x,y);
       x+=1
     y+=1
 
