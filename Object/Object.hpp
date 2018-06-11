@@ -7,12 +7,15 @@
 class Object
 {
 public:
+	static constexpr float defPosX = 13371377.0f;
+	static constexpr float defPosY = defPosX;
+
 	sf::Texture* texture;
 	sf::Vector2f position;
 	sf::Vector2f size;
 
 	Object()
-	:texture(&TextureManager::nulltexture), position({13371337.0f,13371337.0f}){}
+	:texture(&TextureManager::nulltexture), position({defPosX,defPosY}){}
 
 	Object(sf::Texture* tex, sf::Vector2f pos={0,0},
 			   sf::Vector2f s={32,32})

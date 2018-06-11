@@ -11,7 +11,7 @@ GameScene::GameScene(const std::shared_ptr<sf::RenderWindow> &wnd)
 
 	this->player.position.x = 50;
 	this->player.position.y = 50;
-	this->LightManager::registerLightSource(&this->player);
+	this->LightManager::registerLightSource(static_cast<LightSource*>(&this->player));
 }
 
 sceneID GameScene::eventLoop()
