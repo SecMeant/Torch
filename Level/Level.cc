@@ -34,10 +34,16 @@ void Level::loadMap(FILE *mapfile, LightManager *lm)
 
 	for(auto& obj:this->objects)
 	{
-		obj = new Object();
+		obj = nullptr;
 	}
 
 	while(this->fetchObjectFromFile(mapfile, lm)){}
+
+	for(auto& obj:this->objects)
+	{
+		if(obj == nullptr)
+			obj = new Object();
+	}
 }
 
 bool Level::fetchObjectFromFile(FILE *mapfile, LightManager *lm)
@@ -55,27 +61,37 @@ bool Level::fetchObjectFromFile(FILE *mapfile, LightManager *lm)
 	
 	switch(obj.id)
 	{
+		// Wall
 		case 0:
 			mobj.texture = &TextureManager::wall;
 			mobj.isBlocking = true;
 			break;
+
+		// Box branch
 		case 1:
 			mobj.texture = &TextureManager::box;
 			mobj.isBlocking = true;
 			break;
-		case 2:
 
+		// Adding light branch
+		case 2:
 			tobj = new OTorch(obj.x * defaultTileWidth, obj.y * defaultTileHeight);
 			tobj->isBlocking = false;
 
-			this->insertObject(obj.x, obj.y, tobj);
+			this->insertObject(obj.x, obj.y, static_cast<Object*>(tobj));
+	
+			lm->registerLightSource(static_cast<LightSource*>(tobj));
 
-			//lm->registerLightSource(static_cast<LightSource*>(tobj));
-			break;
+			// If this is light
+			return true;
+
+		// Floor / ground
 		case 3:
 			mobj.texture = &TextureManager::ground;
 			mobj.isBlocking = false;
 			break;
+		
+		// Dunno
 		default:
 			mobj.texture = &TextureManager::nulltexture;
 			mobj.isBlocking = false;
@@ -101,8 +117,6 @@ void Level::loadMap(const char *mapfilepath, LightManager *lm)
 	}
 
 	this->loadMap(f, lm);
-
-	fclose(f);
 }
 
 void Level::insertObject(uint32_t x, uint32_t y, Object* nobj)

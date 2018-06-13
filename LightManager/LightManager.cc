@@ -14,9 +14,15 @@ bool LightManager::registerLightSource
 	for(auto light:this->lightSources)
 	{
 		if(ls == light)
+		{
+			puts("Already have that light");
 			return false;
+		}
 	}
 
+	printf("New light registered %p\n",ls);
+	printf("LIGHT: %f %f %f\n",
+			*(ls->posx), *(ls->posy), ls->radius);
 	this->lightSources.push_back(ls);
 	return true;
 }

@@ -11,7 +11,7 @@
 class Moveable
 {
 public:
-	static constexpr float defRunSpeed = 175.0f;
+	static constexpr float defRunSpeed = 225.0f;
 
 	// Used to calculate movement according to time passed
 	sf::Clock clock;

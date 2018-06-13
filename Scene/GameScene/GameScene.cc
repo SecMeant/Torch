@@ -197,9 +197,9 @@ sceneID GameScene::switchScene()
 {
 	puts("Switching to GAMESCENE");
 
-	for(auto plight: this->getLightSources())
+	for(LightSource* plight: this->getLightSources())
 	{
-		printf("%f %f %f\n",
+		printf("LIGHT: %f %f %f\n",
 				*(plight->posx), *(plight->posy), plight->radius);
 	}
 
