@@ -75,7 +75,8 @@ sceneID GameScene::handleKeyPressed
 			break;
 
 		case sf::Keyboard::Space:
-			this->player.scaleLightRadius(1.5f);
+			this->level.spawnLight(this->player.position.x, this->player.position.y,
+					static_cast<LightManager*>(this));
 			break;
 
 		case sf::Keyboard::Escape:

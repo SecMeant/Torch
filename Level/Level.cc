@@ -146,6 +146,17 @@ Object* Level::getObject(uint32_t x, uint32_t y) const
 	return this->objects.at(offset);
 }
 
+void Level::spawnLight(float x, float y, LightManager* lm)
+{
+	OTorch* tobj;
+	tobj = new OTorch(x,y);
+	tobj->isBlocking = false;
+
+	this->insertObject(x, y, static_cast<Object*>(tobj));
+
+	lm->registerLightSource(static_cast<LightSource*>(tobj));
+}
+
 void Level::printObjects()
 {
 	puts("Object list:");
