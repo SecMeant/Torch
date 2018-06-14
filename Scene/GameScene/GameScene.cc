@@ -212,10 +212,16 @@ sceneID GameScene::switchScene()
 
 void GameScene::placeTorch()
 {
+	int32_t x = (int32_t)this->player.position.x / 32;
+	int32_t y = (int32_t)this->player.position.y / 32;
+	Object* obj = this->level.getObject(x,y);
+
+	if(obj->type == Object::Type::Torch)
+		return;
+
 	if(this->player.torchCount > 0)
 	{
-		this->level.spawnLight(this->player.position.x/32.0f, this->player.position.y/32.0f,
-			static_cast<LightManager*>(this));
+		this->level.spawnLight(x,y,static_cast<LightManager*>(this));
 		--this->player.torchCount;
 	}
 
@@ -233,11 +239,11 @@ void GameScene::pickUp()
 	printf("Pickup at %u %u\n",x,y);
 	Object* obj = this->level.getObject(x,y);
 	
-	if(obj == nullptr)
+	if(obj == nullptr || obj->type != Object::Type::Torch)
 		return;
 	
 	this->removeLightSource(static_cast<LightSource*>(dynamic_cast<OTorch*>(obj)));
-	this->level.insertObject(x,y, new Object(&TextureManager::ground,
+	this->level.insertObject(x,y,new Object(Object::Type::Ground,&TextureManager::ground,
 		{x*Level::defaultTileWidth,y*Level::defaultTileHeight}));
 
 	this->player.torchCount++;

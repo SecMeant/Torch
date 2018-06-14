@@ -7,6 +7,11 @@
 class Object
 {
 public:
+	enum class Type
+	{
+		Wall, Box, Ground, Torch
+	}type;
+
 	static constexpr float defPosX = 13371377.0f;
 	static constexpr float defPosY = defPosX;
 
@@ -18,13 +23,13 @@ public:
 	// False otherwise
 	bool isBlocking;
 
-	Object()
-	:texture(&TextureManager::nulltexture), position({defPosX,defPosY}),
-	 isBlocking(false){}
+	Object(Type t)
+	:type(t), texture(&TextureManager::nulltexture),
+	 position({defPosX,defPosY}), isBlocking(false){}
 
-	Object(sf::Texture* tex, sf::Vector2f pos={0,0},
+	Object(Type t, sf::Texture* tex, sf::Vector2f pos={0,0},
 			   sf::Vector2f s={32,32}, bool isblocking = false)
-	:texture(tex), position(pos), size(s), isBlocking(isblocking)
+	:type(t), texture(tex), position(pos), size(s), isBlocking(isblocking)
 	{}
 
 	virtual void use();

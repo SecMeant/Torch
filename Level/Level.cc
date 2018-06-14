@@ -42,14 +42,14 @@ void Level::loadMap(FILE *mapfile, LightManager *lm)
 	for(auto& obj:this->objects)
 	{
 		if(obj == nullptr)
-			obj = new Object();
+			obj = new Object(Object::Type::Ground);
 	}
 }
 
 bool Level::fetchObjectFromFile(FILE *mapfile, LightManager *lm)
 {
 	struct mapObject obj;
-	Object mobj; 
+	Object mobj(Object::Type::Ground); 
 	OTorch *tobj;
 	auto ret = fread(&obj, sizeof(mapObject), 1, mapfile);
 	
