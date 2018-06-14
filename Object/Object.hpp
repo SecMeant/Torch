@@ -23,8 +23,8 @@ public:
 	 isBlocking(false){}
 
 	Object(sf::Texture* tex, sf::Vector2f pos={0,0},
-			   sf::Vector2f s={32,32})
-	:texture(tex), position(pos), size(s)
+			   sf::Vector2f s={32,32}, bool isblocking = false)
+	:texture(tex), position(pos), size(s), isBlocking(isblocking)
 	{}
 
 	virtual void use();

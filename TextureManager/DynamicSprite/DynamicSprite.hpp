@@ -37,7 +37,11 @@ public:
 	void scaleSprite(float scaleFactor);
 	
 	void update();
-	sf::Sprite& getFrame();
+	
+	// If any dynamicsprite have some custom rendering this
+	// method should be overriden and return proper, custom rendred
+	// sprite
+	virtual sf::Sprite& getFrame();
 };
 
 #endif // DYNAMICSPRITE_H

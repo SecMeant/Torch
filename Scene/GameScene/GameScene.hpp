@@ -5,6 +5,7 @@
 #include "../../Player/Player.hpp"
 #include "../../Level/Level.hpp"
 #include "../../LightManager/LightManager.hpp"
+#include "../../Object/Torch/OTorch.hpp"
 
 #include "../../utility/complexTypes.hpp"
 
@@ -36,11 +37,11 @@ private:
 	void drawObjects();
 
 	void placeTorch();
+	void pickUp();
 public:
 	explicit GameScene(const std::shared_ptr<sf::RenderWindow> &wnd);
 
 	virtual sceneID switchScene() override;
-
 };
 
 #endif // GAMESCENE_H

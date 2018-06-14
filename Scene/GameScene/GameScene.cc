@@ -74,6 +74,10 @@ sceneID GameScene::handleKeyPressed
 			this->player.direction = Direction::S;
 			break;
 
+		case sf::Keyboard::LControl:
+			this->pickUp();
+			break;
+
 		case sf::Keyboard::Space:
 			this->placeTorch();
 			break;
@@ -218,3 +222,24 @@ void GameScene::placeTorch()
 	printf("Torch count: %u\n",this->player.torchCount);
 }
 
+void GameScene::pickUp()
+{
+	int32_t x = this->player.position.x;
+	int32_t y = this->player.position.y;
+
+	x /= 32;
+	y /= 32;
+
+	printf("Pickup at %u %u\n",x,y);
+	Object* obj = this->level.getObject(x,y);
+	
+	if(obj == nullptr)
+		return;
+	
+	this->removeLightSource(static_cast<LightSource*>(dynamic_cast<OTorch*>(obj)));
+	this->level.insertObject(x,y, new Object(&TextureManager::ground,
+		{x*Level::defaultTileWidth,y*Level::defaultTileHeight}));
+
+	this->player.torchCount++;
+	printf("Torch count: %u\n", this->player.torchCount);
+}
