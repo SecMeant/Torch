@@ -8,11 +8,13 @@
 class OTorch:public Object, public LightSource
 {
 public:
-	static constexpr float defRadius = 48.0f;
+	static constexpr float defRadius = 140.0f;
 
 	OTorch(float x, float y);
 	OTorch(OTorch &t);
 	OTorch(OTorch &&t);
+
+	~OTorch();
 };
 
 #endif // TORCH_H

@@ -14,3 +14,8 @@ OTorch::OTorch(OTorch &&t)
 :Object(Object::Type::Torch, t.texture, t.position, t.size),
  LightSource(&this->position.x, &this->position.y, defRadius)
 {puts("called");}
+
+OTorch::~OTorch()
+{
+	puts("Destoring torch");
+}

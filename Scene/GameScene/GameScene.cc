@@ -216,7 +216,7 @@ void GameScene::placeTorch()
 	int32_t y = (int32_t)this->player.position.y / 32;
 	Object* obj = this->level.getObject(x,y);
 
-	if(obj->type == Object::Type::Torch)
+	if(obj->type != Object::Type::Ground)
 		return;
 
 	if(this->player.torchCount > 0)
@@ -244,7 +244,7 @@ void GameScene::pickUp()
 	
 	this->removeLightSource(static_cast<LightSource*>(dynamic_cast<OTorch*>(obj)));
 	this->level.insertObject(x,y,new Object(Object::Type::Ground,&TextureManager::ground,
-		{x*Level::defaultTileWidth,y*Level::defaultTileHeight}));
+		{(float)x*Level::defaultTileWidth,(float)y*Level::defaultTileHeight}));
 
 	this->player.torchCount++;
 	printf("Torch count: %u\n", this->player.torchCount);

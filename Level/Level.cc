@@ -64,12 +64,14 @@ bool Level::fetchObjectFromFile(FILE *mapfile, LightManager *lm)
 		// Wall
 		case 0:
 			mobj.texture = &TextureManager::wall;
+			mobj.type = Object::Type::Wall;
 			mobj.isBlocking = true;
 			break;
 
 		// Box branch
 		case 1:
 			mobj.texture = &TextureManager::box;
+			mobj.type = Object::Type::Box;
 			mobj.isBlocking = true;
 			break;
 
@@ -88,12 +90,14 @@ bool Level::fetchObjectFromFile(FILE *mapfile, LightManager *lm)
 		// Floor / ground
 		case 3:
 			mobj.texture = &TextureManager::ground;
+			mobj.type = Object::Type::Ground;
 			mobj.isBlocking = false;
 			break;
 		
 		// Dunno
 		default:
 			mobj.texture = &TextureManager::nulltexture;
+			mobj.type = Object::Type::Ground;
 			mobj.isBlocking = false;
 	}
 
