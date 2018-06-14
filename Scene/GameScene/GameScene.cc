@@ -75,8 +75,7 @@ sceneID GameScene::handleKeyPressed
 			break;
 
 		case sf::Keyboard::Space:
-			this->level.spawnLight(this->player.position.x, this->player.position.y,
-					static_cast<LightManager*>(this));
+			this->placeTorch();
 			break;
 
 		case sf::Keyboard::Escape:
@@ -206,3 +205,16 @@ sceneID GameScene::switchScene()
 
 	return this->eventLoop();
 }
+
+void GameScene::placeTorch()
+{
+	if(this->player.torchCount > 0)
+	{
+		this->level.spawnLight(this->player.position.x, this->player.position.y,
+			static_cast<LightManager*>(this));
+		--this->player.torchCount;
+	}
+
+	printf("Torch count: %u\n",this->player.torchCount);
+}
+

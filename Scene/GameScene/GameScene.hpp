@@ -38,6 +38,8 @@ public:
 	explicit GameScene(const std::shared_ptr<sf::RenderWindow> &wnd);
 
 	virtual sceneID switchScene() override;
+
+	void placeTorch();
 };
 
 #endif // GAMESCENE_H
