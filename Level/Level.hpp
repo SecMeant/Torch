@@ -47,7 +47,7 @@ public:
 private:
 	void loadMap(FILE *mapfile, LightManager *lm);
 	bool fetchObjectFromFile(FILE *mapfile, LightManager *lm);
-	std::vector<Object* > objects;
+	std::vector<Object*> objects;
 
 	Level& operator=(const Level&) = delete;
 	Level(const Level&) = delete;
@@ -68,7 +68,7 @@ public:
 	inline void freeObjects()
 	{for (const auto& obj:objects) delete obj;}
 
-	void spawnLight(float x, float y, LightManager *lm);
+	void spawnLight(int32_t x, int32_t y, LightManager *lm);
 
 	void printObjects();
 

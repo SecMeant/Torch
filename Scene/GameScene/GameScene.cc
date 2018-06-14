@@ -210,7 +210,7 @@ void GameScene::placeTorch()
 {
 	if(this->player.torchCount > 0)
 	{
-		this->level.spawnLight(this->player.position.x, this->player.position.y,
+		this->level.spawnLight(this->player.position.x/32.0f, this->player.position.y/32.0f,
 			static_cast<LightManager*>(this));
 		--this->player.torchCount;
 	}
