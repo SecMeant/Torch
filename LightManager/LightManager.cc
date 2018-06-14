@@ -64,7 +64,7 @@ void LightManager::applyDarkness
 
 		circle.setRadius(light->radius);
 		circle.setOrigin(light->radius, light->radius);
-		circle.setPosition(posx, posy);
+		circle.setPosition(posx+16, posy+16);
 		this->darkness.draw(circle, sf::BlendNone);
 		this->darkness.display();
 	}
