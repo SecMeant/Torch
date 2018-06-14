@@ -10,9 +10,9 @@ Player::Player()
 	this->playerSprite.setIdleAnimation
 		(TextureManager::wizard, 16, 24, 16, 22, 2, 0.75f);
 	this->playerSprite.setMoveVerticalAnimation
-		(TextureManager::wizard, 0, 47, 16, 22, 4, 0.1f);
+		(TextureManager::wizard, 0, 47, 16, 22, 4, 0.07f);
 	this->playerSprite.setMoveHorizontalAnimation
-		(TextureManager::wizard, 0, 47, 16, 22, 4, 0.1f);
+		(TextureManager::wizard, 0, 47, 16, 22, 4, 0.07f);
 }
 
 void Player::scaleLightRadius(float scaleFactor)
