@@ -80,12 +80,15 @@ bool Level::fetchObjectFromFile(FILE *mapfile, LightManager *lm)
 			tobj = new OTorch(obj.x * defaultTileWidth, obj.y * defaultTileHeight);
 			tobj->isBlocking = false;
 
-			this->insertObject(obj.x, obj.y, static_cast<Object*>(tobj));
+			this->insertObject(static_cast<Object*>(tobj));
 	
 			lm->registerLightSource(static_cast<LightSource*>(tobj));
 
-			// If this is light
-			return true;
+			// On map insert empty floor
+			mobj.texture = &TextureManager::ground;
+			mobj.type = Object::Type::Ground;
+			mobj.isBlocking = false;
+			break;
 
 		// Floor / ground
 		case 3:
@@ -106,7 +109,7 @@ bool Level::fetchObjectFromFile(FILE *mapfile, LightManager *lm)
 	mobj.size.x = defaultTileWidth;
 	mobj.size.y = defaultTileHeight;
 
-	this->insertObject(obj.x, obj.y, new Object(mobj));
+	this->insertMapObject(obj.x, obj.y, new Object(mobj));
 	return true;
 }
 
@@ -123,7 +126,7 @@ void Level::loadMap(const char *mapfilepath, LightManager *lm)
 	this->loadMap(f, lm);
 }
 
-void Level::insertObject(uint32_t x, uint32_t y, Object* nobj)
+void Level::insertMapObject(uint32_t x, uint32_t y, Object* nobj)
 {
 	if(x >= this->mapHeader.mapWidth)
 		return;
@@ -137,7 +140,23 @@ void Level::insertObject(uint32_t x, uint32_t y, Object* nobj)
 	this->mapObjects.at(offset) = nobj;
 }
 
-Object* Level::getObject(uint32_t x, uint32_t y) const
+void Level::insertObject(Object* obj)
+{
+	this->objects.push_back(obj);
+}
+
+void Level::removeObject(Object *obj)
+{
+	for(auto it = this->objects.begin(), end = this->objects.end(); it != end; ++it)
+	{
+		if(*it == obj)
+		{
+			this->objects.erase(it);
+		}
+	}
+}
+
+Object* Level::getMapObject(uint32_t x, uint32_t y) const
 {
 	if(x >= this->mapHeader.mapWidth)
 		return nullptr;
@@ -150,16 +169,19 @@ Object* Level::getObject(uint32_t x, uint32_t y) const
 	return this->mapObjects.at(offset);
 }
 
-void Level::spawnLight(int32_t x, int32_t y, LightManager* lm)
+Object* Level::getObject(uint32_t x, uint32_t y) const
 {
-	OTorch* tobj;
-	
-	tobj = new OTorch(x*defaultTileWidth,y*defaultTileHeight);
-	tobj->isBlocking = false;
+	// Poor implementation i know, maybe later ill do better
+	for(auto obj:this->objects)
+	{
+		if((uint32_t)(obj->position.x/32.0f) == x &&
+		   (uint32_t)(obj->position.y/32.0f) == y)
+		{
+			return obj;
+		}
+	}
 
-	this->insertObject(x, y, static_cast<Object*>(tobj));
-
-	lm->registerLightSource(static_cast<LightSource*>(tobj));
+	return nullptr;
 }
 
 void Level::printObjects()

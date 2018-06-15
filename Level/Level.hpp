@@ -52,7 +52,15 @@ private:
 	// Objects occupies offsets in vector according
 	// to its coordinates on map to make collision checks faster
 	std::vector<Object*> mapObjects;
+
+	// Dynamic objects, that can be picked up, droped etc
 	std::vector<Object*> objects;
+
+	inline void freeObjects()
+	{
+		for (const auto& obj:mapObjects) delete obj;
+		for (const auto& obj:objects) delete obj;
+	}
 
 	Level& operator=(const Level&) = delete;
 	Level(const Level&) = delete;
@@ -67,13 +75,11 @@ public:
 	inline const std::vector<Object*>& getMapObjects()
 	{return this->mapObjects;}
 
-	void insertObject(uint32_t x, uint32_t y, Object* nobj);
+	void insertMapObject(uint32_t x, uint32_t y, Object* nobj);
+	void insertObject(Object* nobj);
+	void removeObject(Object *obj);
+	Object* getMapObject(uint32_t x, uint32_t y) const;
 	Object* getObject(uint32_t x, uint32_t y) const;
-
-	inline void freeObjects()
-	{for (const auto& obj:mapObjects) delete obj;}
-
-	void spawnLight(int32_t x, int32_t y, LightManager *lm);
 
 	void printObjects();
 

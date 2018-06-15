@@ -111,14 +111,14 @@ bool GameScene::isMoveLegal(sf::Vector2f pos)
 	// Player came to new tile in width
 	if(this->player.position.x/32.0 != pos.x)
 	{
-		if(this->level.getObject(pos.x, pos.y)->isBlocking)
+		if(this->level.getMapObject(pos.x, pos.y)->isBlocking)
 			return false;
 	}
 
 	// Player came to new tile in height
 	if((this->player.position.y)/32.0 != pos.y)
 	{
-		if(this->level.getObject(pos.x, pos.y)->isBlocking)
+		if(this->level.getMapObject(pos.x, pos.y)->isBlocking)
 			return false;
 	}
 	
@@ -197,7 +197,7 @@ void GameScene::drawObjects()
 				++y;
 			}
 			
-			obj = this->level.getObject(x,y);
+			obj = this->level.getMapObject(x,y);
 			if(obj == nullptr)
 			{
 				++x;
@@ -242,14 +242,14 @@ void GameScene::placeTorch()
 {
 	int32_t x = (int32_t)this->player.position.x / 32;
 	int32_t y = (int32_t)this->player.position.y / 32;
-	Object* obj = this->level.getObject(x,y);
+	Object* obj = this->level.getMapObject(x,y);
 
 	if(obj->type != Object::Type::Ground)
 		return;
 
 	if(this->player.torchCount > 0)
 	{
-		this->level.spawnLight(x,y,static_cast<LightManager*>(this));
+		this->spawnLight(x,y);
 		--this->player.torchCount;
 	}
 
@@ -271,9 +271,20 @@ void GameScene::pickUp()
 		return;
 	
 	this->removeLightSource(static_cast<LightSource*>(dynamic_cast<OTorch*>(obj)));
-	this->level.insertObject(x,y,new Object(Object::Type::Ground,&TextureManager::ground,
-		{(float)x*Level::defaultTileWidth,(float)y*Level::defaultTileHeight}));
 
 	this->player.torchCount++;
 	printf("Torch count: %u\n", this->player.torchCount);
 }
+
+void GameScene::spawnLight(int32_t x, int32_t y)
+{
+	OTorch* tobj;
+	
+	tobj = new OTorch(x*Level::defaultTileWidth,y*Level::defaultTileHeight);
+	tobj->isBlocking = false;
+
+	this->level.insertObject(static_cast<Object*>(tobj));
+
+	this->registerLightSource(static_cast<LightSource*>(tobj));
+}
+

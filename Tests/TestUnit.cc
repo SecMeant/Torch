@@ -14,7 +14,7 @@ void TestUnit::crashTestLevelClass()
 	{
 		for (uint y = 0; y < level.mapHeader.mapHeight; y++)
 		{
-			auto obj = level.getObject(x,y);
+			auto obj = level.getMapObject(x,y);
 			assert(obj->position.x/32.0f == x);
 			assert(obj->position.y/32.0f == y);
 		}

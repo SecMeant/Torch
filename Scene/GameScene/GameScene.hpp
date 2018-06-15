@@ -38,6 +38,8 @@ private:
 
 	void placeTorch();
 	void pickUp();
+
+	void spawnLight(int32_t x, int32_t y);
 public:
 	explicit GameScene(const std::shared_ptr<sf::RenderWindow> &wnd);
 
