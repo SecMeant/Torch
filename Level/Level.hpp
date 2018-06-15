@@ -47,6 +47,11 @@ public:
 private:
 	void loadMap(FILE *mapfile, LightManager *lm);
 	bool fetchObjectFromFile(FILE *mapfile, LightManager *lm);
+	
+	// Vector that holds static map objects
+	// Objects occupies offsets in vector according
+	// to its coordinates on map to make collision checks faster
+	std::vector<Object*> mapObjects;
 	std::vector<Object*> objects;
 
 	Level& operator=(const Level&) = delete;
@@ -59,14 +64,14 @@ public:
 
 	void loadMap(const char *mapfilepath, LightManager *lm);
 	
-	inline const std::vector<Object*>& getObjects()
-	{return this->objects;}
+	inline const std::vector<Object*>& getMapObjects()
+	{return this->mapObjects;}
 
 	void insertObject(uint32_t x, uint32_t y, Object* nobj);
 	Object* getObject(uint32_t x, uint32_t y) const;
 
 	inline void freeObjects()
-	{for (const auto& obj:objects) delete obj;}
+	{for (const auto& obj:mapObjects) delete obj;}
 
 	void spawnLight(int32_t x, int32_t y, LightManager *lm);
 

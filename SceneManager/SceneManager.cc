@@ -9,7 +9,7 @@ SceneManager::SceneManager()
 	puts("Creating scene manager");
 	this->mainWindow =
 		std::make_unique<sf::RenderWindow>
-		(sf::VideoMode(800,600),
+		(sf::VideoMode(1280,720),
 		 "Torch", sf::Style::Close);
 	this->mainWindow->setFramerateLimit(60);
 

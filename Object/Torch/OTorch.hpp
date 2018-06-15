@@ -15,6 +15,8 @@ public:
 	OTorch(OTorch &&t);
 
 	~OTorch();
+	OTorch& operator=(const OTorch&) = delete;
+	OTorch(const OTorch&) = delete;
 };
 
 #endif // TORCH_H

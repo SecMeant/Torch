@@ -29,17 +29,17 @@ void Level::loadMap(FILE *mapfile, LightManager *lm)
 					this->mapHeader.mapWidth,
 					this->mapHeader.mapHeight);
 	
-	this->objects.clear();
-	this->objects.resize(this->mapHeader.mapWidth * this->mapHeader.mapHeight);
+	this->mapObjects.clear();
+	this->mapObjects.resize(this->mapHeader.mapWidth * this->mapHeader.mapHeight);
 
-	for(auto& obj:this->objects)
+	for(auto& obj:this->mapObjects)
 	{
 		obj = nullptr;
 	}
 
 	while(this->fetchObjectFromFile(mapfile, lm)){}
 
-	for(auto& obj:this->objects)
+	for(auto& obj:this->mapObjects)
 	{
 		if(obj == nullptr)
 			obj = new Object(Object::Type::Ground);
@@ -133,8 +133,8 @@ void Level::insertObject(uint32_t x, uint32_t y, Object* nobj)
 
 	auto offset = x + y*this->mapHeader.mapWidth;
 
-	delete this->objects.at(offset);
-	this->objects.at(offset) = nobj;
+	delete this->mapObjects.at(offset);
+	this->mapObjects.at(offset) = nobj;
 }
 
 Object* Level::getObject(uint32_t x, uint32_t y) const
@@ -147,7 +147,7 @@ Object* Level::getObject(uint32_t x, uint32_t y) const
 	
 	auto offset = x + y*this->mapHeader.mapWidth;
 
-	return this->objects.at(offset);
+	return this->mapObjects.at(offset);
 }
 
 void Level::spawnLight(int32_t x, int32_t y, LightManager* lm)
@@ -165,7 +165,7 @@ void Level::spawnLight(int32_t x, int32_t y, LightManager* lm)
 void Level::printObjects()
 {
 	puts("Object list:");
-	for(const auto& obj:this->objects)
+	for(const auto& obj:this->mapObjects)
 	{
 		printf("x: %f\t y: %f width: %f height: %f",
 				    obj->position.x, obj->position.y,

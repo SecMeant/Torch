@@ -173,26 +173,54 @@ void GameScene::drawObjects()
 {
 	sf::Sprite sprite;
 
-	for(const auto& obj:this->level.getObjects())
+	for(const auto light:this->LightManager::getLightSources())
 	{
-		float posx;
-		posx  = obj->position.x;
-		posx -= this->player.position.x;
-		posx += this->defShiftx;
+		int32_t xbegin = (int32_t)(*light->posx / 32.0f);
+		int32_t ybegin = (int32_t)(*light->posy / 32.0f);
+		int32_t xend = xbegin + light->radius;
+		int32_t yend = ybegin + light->radius;
+		int32_t x;
+		int32_t y;
+		Object* obj;
 
-		float posy;
-		posy = obj->position.y;
-		posy -= this->player.position.y;
-		posy += this->defShifty;
+		xbegin -= light->radius;
+		ybegin -= light->radius;
 
-		for(const auto light:this->LightManager::getLightSources())
+		x = xbegin;
+		y = ybegin;
+		
+		while(y <= yend)
 		{
+			if(x == xend)
+			{
+				x = xbegin;
+				++y;
+			}
+			
+			obj = this->level.getObject(x,y);
+			if(obj == nullptr)
+			{
+				++x;
+				continue;
+			}
+
+			float posx;
+			posx  = obj->position.x;
+			posx -= this->player.position.x;
+			posx += this->defShiftx;
+
+			float posy;
+			posy = obj->position.y;
+			posy -= this->player.position.y;
+			posy += this->defShifty;
+
 			if(light->isInRadius(*obj))
 			{
 				sprite.setTexture(*obj->texture);
 				sprite.setPosition(posx, posy);
 				this->parentWindow->draw(sprite);
 			}
+			++x;
 		}
 	}
 }
