@@ -129,6 +129,7 @@ void GameScene::drawPlayer()
 {
 	this->player.torch.update();
 	this->player.light.update();
+	this->player.broom.update();
 	this->player.playerSprite.update();
 
 	// Drawing light texture
@@ -139,11 +140,22 @@ void GameScene::drawPlayer()
 
 	if (this->player.Moveable::direction == Direction::W)
 	{
-		// Drawing torch texture
-		frame = this->player.torch.getFrame();
-		frame.setPosition(this->defShiftx - 6,
-											this->defShifty - 8);
-		this->parentWindow->draw(frame);
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::RControl))
+		{
+			// Drawing broom texture
+			frame = this->player.broom.getFrame();
+			frame.setPosition(this->defShiftx,
+												this->defShifty + 10);
+			this->parentWindow->draw(frame);
+		}
+		else
+		{
+			// Drawing torch texture
+			frame = this->player.torch.getFrame();
+			frame.setPosition(this->defShiftx - 6,
+												this->defShifty - 8);
+			this->parentWindow->draw(frame);
+		}
 
 		// Drawing player texture
 		frame = this->player.playerSprite.getFrame();
@@ -159,11 +171,22 @@ void GameScene::drawPlayer()
 				              this->defShifty);
 		this->parentWindow->draw(frame);
 
-		// Drawing torch texture
-		frame = this->player.torch.getFrame();
-		frame.setPosition(this->defShiftx - 6,
-											this->defShifty - 6);
-		this->parentWindow->draw(frame);
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::RControl))
+		{
+			// Drawing broom texture
+			frame = this->player.broom.getFrame();
+			frame.setPosition(this->defShiftx,
+												this->defShifty + 10);
+			this->parentWindow->draw(frame);
+		}
+		else
+		{
+			// Drawing torch texture
+			frame = this->player.torch.getFrame();
+			frame.setPosition(this->defShiftx - 6,
+												this->defShifty - 8);
+			this->parentWindow->draw(frame);
+		}
 	}
 
 	return;

@@ -12,6 +12,7 @@ class Player:public Moveable, public LightSource
 public:
 	mutable DynamicSprite torch;
 	mutable DynamicSprite light;
+	mutable DynamicSprite broom;
 	mutable MotionSprite playerSprite;
 
 	uint32_t torchCount;
