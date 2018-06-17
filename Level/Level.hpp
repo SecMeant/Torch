@@ -9,6 +9,7 @@
 #include "../utility/stdshared.hpp"
 #include "../LightManager/LightManager.hpp"
 #include "../Object/Object.hpp"
+#include "../Object/DynamicObject/DynamicObject.hpp"
 
 #include "../Tests/TestUnit.hpp"
 
@@ -54,7 +55,7 @@ private:
 	std::vector<Object*> mapObjects;
 
 	// Dynamic objects, that can be picked up, droped etc
-	std::vector<Object*> objects;
+	std::vector<DynamicObject*> objects;
 
 	inline void freeObjects()
 	{
@@ -76,10 +77,10 @@ public:
 	{return this->mapObjects;}
 
 	void insertMapObject(uint32_t x, uint32_t y, Object* nobj);
-	void insertObject(Object* nobj);
-	void removeObject(Object *obj);
+	void insertObject(DynamicObject* nobj);
+	void removeObject(DynamicObject *obj);
 	Object* getMapObject(uint32_t x, uint32_t y) const;
-	Object* getObject(uint32_t x, uint32_t y) const;
+	DynamicObject* getObject(uint32_t x, uint32_t y) const;
 
 	void printObjects();
 

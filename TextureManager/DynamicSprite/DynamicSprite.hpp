@@ -27,7 +27,7 @@ public:
 	// flipped horizontally
 	bool isFlipped;
 
-	DynamicSprite();
+	explicit DynamicSprite();
 
 	DynamicSprite
 	(const sf::Texture &tex, int32_t offsetX, int32_t offsetY,

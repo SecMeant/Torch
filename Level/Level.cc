@@ -79,8 +79,9 @@ bool Level::fetchObjectFromFile(FILE *mapfile, LightManager *lm)
 		case 2:
 			tobj = new OTorch(obj.x * defaultTileWidth, obj.y * defaultTileHeight);
 			tobj->isBlocking = false;
+			tobj->setSprite({TextureManager::torch, 0, 0, 9, 15, 3, 0.25f});
 
-			this->insertObject(static_cast<Object*>(tobj));
+			this->insertObject(static_cast<DynamicObject*>(tobj));
 	
 			lm->registerLightSource(static_cast<LightSource*>(tobj));
 
@@ -140,12 +141,12 @@ void Level::insertMapObject(uint32_t x, uint32_t y, Object* nobj)
 	this->mapObjects.at(offset) = nobj;
 }
 
-void Level::insertObject(Object* obj)
+void Level::insertObject(DynamicObject* obj)
 {
 	this->objects.push_back(obj);
 }
 
-void Level::removeObject(Object *obj)
+void Level::removeObject(DynamicObject *obj)
 {
 	for(auto it = this->objects.begin(), end = this->objects.end(); it != end; ++it)
 	{
@@ -169,7 +170,7 @@ Object* Level::getMapObject(uint32_t x, uint32_t y) const
 	return this->mapObjects.at(offset);
 }
 
-Object* Level::getObject(uint32_t x, uint32_t y) const
+DynamicObject* Level::getObject(uint32_t x, uint32_t y) const
 {
 	// Poor implementation i know, maybe later ill do better
 	for(auto obj:this->objects)

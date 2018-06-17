@@ -2,10 +2,10 @@
 #define TORCH_H
 
 #include "../../utility/stdshared.hpp"
-#include "../Object.hpp"
+#include "../DynamicObject/DynamicObject.hpp"
 #include "../../Interfaces/LightSource/LightSource.hpp"
 
-class OTorch:public Object, public LightSource
+class OTorch:public DynamicObject, public LightSource
 {
 public:
 	static constexpr float defRadius = 140.0f;

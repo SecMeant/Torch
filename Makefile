@@ -4,7 +4,7 @@ sfmlso=-lsfml-graphics -lsfml-window -lsfml-system
 OBJS=main.o scene.o scenemanager.o texturemanager.o complexTypes.o\
 		 mainscene.o gamescene.o player.o moveable.o dynamicsprite.o\
 		 motionsprite.o level.o lightsource.o object.o mapobject.o\
-		 lightmanager.o otorch.o testunit.o
+		 lightmanager.o otorch.o testunit.o dynamicobject.o
 OBJDIR=obj
 
 ifdef ComSpec
@@ -55,6 +55,9 @@ $(OBJDIR)/player.o: Player/Player.cc
 	$(CC) -c $^ -o $@ $(CFLAGS)
 
 $(OBJDIR)/object.o: Object/Object.cc
+	$(CC) -c $^ -o $@ $(CFLAGS)
+
+$(OBJDIR)/dynamicobject.o: Object/DynamicObject/DynamicObject.cc
 	$(CC) -c $^ -o $@ $(CFLAGS)
 
 $(OBJDIR)/otorch.o: Object/Torch/OTorch.cc

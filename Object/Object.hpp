@@ -32,10 +32,6 @@ public:
 	:type(t), texture(tex), position(pos), size(s), isBlocking(isblocking)
 	{}
 
-	virtual void use();
-	virtual void drop();
-	virtual void pickup();
-
 	sf::FloatRect getObjectRange() const;
 	sf::Vector2f getObjectCoords() const;
 

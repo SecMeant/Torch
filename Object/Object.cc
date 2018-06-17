@@ -1,20 +1,5 @@
 #include "Object.hpp"
 
-void Object::use()
-{
-	puts("USING OBJECT");
-}
-
-void Object::drop()
-{
-	puts("DROPPING OBJECT");
-}
-
-void Object::pickup()
-{
-	puts("PICKING UP OBJECT");
-}
-
 sf::FloatRect Object::getObjectRange() const
 {
 	return sf::FloatRect(this->position.x,

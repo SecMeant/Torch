@@ -205,6 +205,7 @@ void GameScene::drawObjects()
 		int32_t x;
 		int32_t y;
 		Object* obj;
+		DynamicObject* dobj;
 
 		xbegin -= light->radius;
 		ybegin -= light->radius;
@@ -212,6 +213,9 @@ void GameScene::drawObjects()
 		x = xbegin;
 		y = ybegin;
 		
+		float posx;
+		float posy;
+
 		while(y <= yend)
 		{
 			if(x == xend)
@@ -221,27 +225,36 @@ void GameScene::drawObjects()
 			}
 			
 			obj = this->level.getMapObject(x,y);
-			if(obj == nullptr)
+			if(obj != nullptr && light->isInRadius(*obj))
 			{
-				++x;
-				continue;
-			}
+				posx  = obj->position.x;
+				posx -= this->player.position.x;
+				posx += this->defShiftx;
 
-			float posx;
-			posx  = obj->position.x;
-			posx -= this->player.position.x;
-			posx += this->defShiftx;
+				posy = obj->position.y;
+				posy -= this->player.position.y;
+				posy += this->defShifty;
 
-			float posy;
-			posy = obj->position.y;
-			posy -= this->player.position.y;
-			posy += this->defShifty;
-
-			if(light->isInRadius(*obj))
-			{
 				sprite.setTexture(*obj->texture);
 				sprite.setPosition(posx, posy);
 				this->parentWindow->draw(sprite);
+			}
+
+			dobj = this->level.getObject(x,y);
+			if(dobj != nullptr)
+			{
+				posx  = dobj->position.x;
+				posx -= this->player.position.x;
+				posx += this->defShiftx+8;
+
+				posy = dobj->position.y;
+				posy -= this->player.position.y;
+				posy += this->defShifty+8;
+
+				dobj->sprite.update();
+				auto dsprite = dobj->sprite.getFrame();
+				dsprite.setPosition(posx, posy);
+				this->parentWindow->draw(dsprite);
 			}
 			++x;
 		}
@@ -293,6 +306,7 @@ void GameScene::pickUp()
 	if(obj == nullptr || obj->type != Object::Type::Torch)
 		return;
 	
+	this->level.removeObject(this->level.getObject(x,y));
 	this->removeLightSource(static_cast<LightSource*>(dynamic_cast<OTorch*>(obj)));
 
 	this->player.torchCount++;
@@ -305,8 +319,9 @@ void GameScene::spawnLight(int32_t x, int32_t y)
 	
 	tobj = new OTorch(x*Level::defaultTileWidth,y*Level::defaultTileHeight);
 	tobj->isBlocking = false;
+	tobj->setSprite({TextureManager::torch, 0, 0, 9, 15, 3, 0.25f});
 
-	this->level.insertObject(static_cast<Object*>(tobj));
+	this->level.insertObject(static_cast<DynamicObject*>(tobj));
 
 	this->registerLightSource(static_cast<LightSource*>(tobj));
 }
