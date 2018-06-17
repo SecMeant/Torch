@@ -37,16 +37,20 @@ sceneID GameScene::eventLoop()
 
 		}
 
-		this->parentWindow->clear();
-		this->parentWindow->draw(this->background);
+		this->parentWindow->clear(sf::Color::Black);
+		
 		this->drawObjects();
+		
 		this->playerMoveIfValid();
 		this->player.updateDirections();
 		this->player.updateOrientation();
 		this->drawPlayer();
-		this->LightManager::applyDarkness(*this->parentWindow,
-			this->player.position.x - this->defShiftx,
-			this->player.position.y - this->defShifty);
+		
+		// *** This makes huge hit on performance and pixel effect looks better ***
+		//this->LightManager::applyDarkness(*this->parentWindow,
+		//	this->player.position.x - this->defShiftx,
+		//	this->player.position.y - this->defShifty);
+		
 		this->parentWindow->display();
 	}
 	return {sceneID::none};
