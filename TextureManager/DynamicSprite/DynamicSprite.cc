@@ -46,7 +46,6 @@ void DynamicSprite::update()
 		this->currentFrame.setTextureRect(sf::IntRect
 		(this->texFileOffset.first + this->texSize.first * this->animPhase,
 		 this->texFileOffset.second, this->texSize.first, this->texSize.second));
-		this->currentFrame.setScale(2,2);
 	}
 }
 
