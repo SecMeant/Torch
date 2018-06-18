@@ -13,6 +13,8 @@
 
 #include <vector>
 #include <memory>
+#include <time.h>
+
 
 class GameScene:public Scene, public LightManager
 {
@@ -24,6 +26,8 @@ public:
 private:
 	Player player;
 	Level level;
+
+	sf::Clock clock;
 
 	bool smoothDarkness;
 	bool currentFrameParity;
@@ -46,6 +50,8 @@ private:
 	void spawnLight(int32_t x, int32_t y);
 
 	void renderFrame();
+
+	void checkLogic();
 public:
 	explicit GameScene(const std::shared_ptr<sf::RenderWindow> &wnd);
 

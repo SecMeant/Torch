@@ -12,6 +12,9 @@ GameScene::GameScene(const std::shared_ptr<sf::RenderWindow> &wnd)
 	this->player.position.x = 50;
 	this->player.position.y = 50;
 	this->LightManager::registerLightSource(static_cast<LightSource*>(&this->player));
+
+	srand(time(NULL));
+	this->clock.restart();
 }
 
 sceneID GameScene::eventLoop()
@@ -35,6 +38,7 @@ sceneID GameScene::eventLoop()
 					return ret;
 			}
 		}
+		this->checkLogic();
 		this->renderFrame();
 	}
 	return {sceneID::none};
@@ -245,18 +249,21 @@ void GameScene::drawObjects()
 			dobj = this->level.getObject(x,y);
 			if(dobj != nullptr)
 			{
-				posx  = dobj->position.x;
-				posx -= this->player.position.x;
-				posx += this->defShiftx+8;
+				if(light->isInRadius(*obj))
+				{
+					posx  = dobj->position.x;
+					posx -= this->player.position.x;
+					posx += this->defShiftx+8;
 
-				posy = dobj->position.y;
-				posy -= this->player.position.y;
-				posy += this->defShifty+8;
+					posy = dobj->position.y;
+					posy -= this->player.position.y;
+					posy += this->defShifty+8;
 
-				dobj->sprite.update();
-				auto dsprite = dobj->sprite.getFrame();
-				dsprite.setPosition(posx, posy);
-				this->parentWindow->draw(dsprite);
+					dobj->sprite.update();
+					auto dsprite = dobj->sprite.getFrame();
+					dsprite.setPosition(posx, posy);
+					this->parentWindow->draw(dsprite);
+				}
 			}
 			++x;
 		}
@@ -350,3 +357,48 @@ void GameScene::renderFrame()
 		this->currentFrameParity = !this->currentFrameParity;
 		this->parentWindow->display();
 }
+
+void GameScene::checkLogic()
+{
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::RControl))
+	{
+		int32_t posx = this->player.position.x/32.0f;
+		int32_t posy = this->player.position.y/32.0f;
+		
+		auto obj = this->level.getObject(posx, posy+1);
+		if(obj != nullptr && obj->type == Object::Type::Target)
+		{
+			this->level.removeObject(obj);
+		}
+	}
+
+	if (this->clock.getElapsedTime().asSeconds() < 2)
+		return;
+
+	this->clock.restart();
+
+	while(true)
+	{
+		auto randPos = rand();
+		auto randPosX = randPos%this->level.mapHeader.mapHeight;
+		auto randPosY = randPos/this->level.mapHeader.mapHeight;
+
+		auto obj = this->level.getMapObject(randPosX, randPosY);
+		if(obj == nullptr)
+			continue;
+
+		if(obj->type != Object::Type::Ground)
+			continue;
+
+		auto testweb = new DynamicObject(Object::Type::Target, &TextureManager::web,
+			{static_cast<float>(randPosX*Level::defaultTileWidth),
+			 static_cast<float>(randPosY*Level::defaultTileHeight)});
+		testweb->setSprite({TextureManager::web, 0, 0, 32, 32, 1, 0.0f, 1.0f, 1.0f});
+		this->level.insertObject(testweb);
+
+		return; // Breaks while
+ 	}
+}
+
+
+

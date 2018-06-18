@@ -12,6 +12,7 @@ sf::Texture TextureManager::wall;
 sf::Texture TextureManager::box;
 sf::Texture TextureManager::ground;
 sf::Texture TextureManager::broom;
+sf::Texture TextureManager::web;
 
 int32_t TextureManager::lifecount = 0;
 
@@ -39,6 +40,7 @@ void TextureManager::loadTextures()
 	TextureManager::box.loadFromFile(this->boxPath);
 	TextureManager::ground.loadFromFile(this->floorPath);
 	TextureManager::broom.loadFromFile(this->broomPath);
+	TextureManager::web.loadFromFile(this->webPath);
 }
 
 void TextureManager::loadFonts()

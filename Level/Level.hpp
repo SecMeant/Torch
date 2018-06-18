@@ -77,7 +77,7 @@ public:
 	{return this->mapObjects;}
 
 	void insertMapObject(uint32_t x, uint32_t y, Object* nobj);
-	void insertObject(DynamicObject* nobj);
+	void insertObject(DynamicObject *nobj);
 	void removeObject(DynamicObject *obj);
 	Object* getMapObject(uint32_t x, uint32_t y) const;
 	DynamicObject* getObject(uint32_t x, uint32_t y) const;

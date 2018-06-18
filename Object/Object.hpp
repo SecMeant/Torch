@@ -9,7 +9,7 @@ class Object
 public:
 	enum class Type
 	{
-		Wall, Box, Ground, Torch
+		Wall, Box, Ground, Torch, Target
 	}type;
 
 	static constexpr float defPosX = 13371377.0f;
