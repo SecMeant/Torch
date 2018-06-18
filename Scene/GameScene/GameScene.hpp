@@ -25,6 +25,7 @@ private:
 	Player player;
 	Level level;
 
+	bool smoothDarkness;
 	bool currentFrameParity;
 
 	virtual sceneID eventLoop() override;

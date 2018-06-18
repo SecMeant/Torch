@@ -1,7 +1,7 @@
 #include "GameScene.hpp"
 
 GameScene::GameScene(const std::shared_ptr<sf::RenderWindow> &wnd)
-:Scene(wnd), LightManager(wnd->getSize()), currentFrameParity(0)
+:Scene(wnd), LightManager(wnd->getSize()), smoothDarkness(false), currentFrameParity(0)
 {
 	puts("GAMESCENE CREATION MESSAGE");
 	this->setBackground(TextureManager::gamesceneBackground);
@@ -72,6 +72,10 @@ sceneID GameScene::handleKeyPressed
 
 		case sf::Keyboard::Escape:
 			ret = sceneID::mainmenu;
+			break;
+
+		case sf::Keyboard::F1:
+			this->smoothDarkness = !this->smoothDarkness;
 			break;
 
 		default:
@@ -334,11 +338,14 @@ void GameScene::renderFrame()
 		this->player.updateDirections();
 		this->player.updateOrientation();
 		this->drawPlayer();
-		
-		// *** This makes huge hit on performance and pixel effect looks better ***
-		//this->LightManager::applyDarkness(*this->parentWindow,
-		//	this->player.position.x - this->defShiftx,
-		//	this->player.position.y - this->defShifty);
+	
+		if(this->smoothDarkness)
+		{
+			/*** Might cause performance hit  ***/
+			this->LightManager::applyDarkness(*this->parentWindow,
+				this->player.position.x - this->defShiftx,
+				this->player.position.y - this->defShifty);
+		}
 		
 		this->currentFrameParity = !this->currentFrameParity;
 		this->parentWindow->display();
