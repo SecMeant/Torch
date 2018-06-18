@@ -212,8 +212,17 @@ void GameScene::drawObjects()
 			}
 			
 			obj = this->level.getMapObject(x,y);
-			if(obj != nullptr && light->isInRadius(*obj))
+			if(obj != nullptr)
 			{
+				// already drawn
+				if(obj->lastFrameParity == this->currentFrameParity)
+				{
+					x++;
+					continue;
+				}
+
+				if(light->isInRadius(*obj))
+				{
 					posx  = obj->position.x;
 					posx -= this->player.position.x;
 					posx += this->defShiftx;
@@ -225,6 +234,8 @@ void GameScene::drawObjects()
 					sprite.setTexture(*obj->texture);
 					sprite.setPosition(posx, posy);
 					this->parentWindow->draw(sprite);
+					obj->lastFrameParity = this->currentFrameParity;
+				}
 			}
 
 			dobj = this->level.getObject(x,y);
@@ -329,6 +340,6 @@ void GameScene::renderFrame()
 		//	this->player.position.x - this->defShiftx,
 		//	this->player.position.y - this->defShifty);
 		
-		this->currentFrameParity = !this->currentFrameParity;;
+		this->currentFrameParity = !this->currentFrameParity;
 		this->parentWindow->display();
 }
