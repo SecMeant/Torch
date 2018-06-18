@@ -23,6 +23,11 @@ public:
 	// False otherwise
 	bool isBlocking;
 
+	// Holds parity of last renderd frame that it was used for
+	// object is not rendered if already rendered in given frame
+	// GameScene should make use of it
+	bool lastFrameParity;
+
 	Object(Type t)
 	:type(t), texture(&TextureManager::nulltexture),
 	 position({defPosX,defPosY}), isBlocking(false){}
@@ -34,6 +39,7 @@ public:
 
 	sf::FloatRect getObjectRange() const;
 	sf::Vector2f getObjectCoords() const;
+
 
 	virtual ~Object() = default;
 };

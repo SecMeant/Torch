@@ -1,15 +1,11 @@
 #include "LightSource.hpp"
 #include <math.h>
 
-// Placeholder until better solution comes
-// Used to remove object suddenly appearing on border of light
-constexpr float radiusShift = 32;
-
 bool LightSource::isInRadius(sf::FloatRect obj) const
 {
 	sf::Vector2f p1(*this->posx, *this->posy);
 	sf::Vector2f p2(obj.left, obj.top);
-	if(getDistanceBetween(p1,p2) < this->radius+radiusShift)
+	if(getDistanceBetween(p1,p2) < this->radius)
 		return true;
 	return false;
 }
@@ -18,7 +14,7 @@ bool LightSource::isInRadius(const Object &obj) const
 {
 	sf::Vector2f p1(*this->posx, *this->posy);
 	sf::Vector2f p2 = obj.getObjectCoords();
-	if(getDistanceBetween(p1,p2) < this->radius+radiusShift)
+	if(getDistanceBetween(p1,p2) < this->radius)
 		return true;
 	return false;
 }

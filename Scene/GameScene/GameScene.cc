@@ -1,7 +1,7 @@
 #include "GameScene.hpp"
 
 GameScene::GameScene(const std::shared_ptr<sf::RenderWindow> &wnd)
-:Scene(wnd), LightManager(wnd->getSize())
+:Scene(wnd), LightManager(wnd->getSize()), currentFrameParity(0)
 {
 	puts("GAMESCENE CREATION MESSAGE");
 	this->setBackground(TextureManager::gamesceneBackground);
@@ -34,24 +34,8 @@ sceneID GameScene::eventLoop()
 				if(ret != sceneID::none)
 					return ret;
 			}
-
 		}
-
-		this->parentWindow->clear(sf::Color::Black);
-		
-		this->drawObjects();
-		
-		this->playerMoveIfValid();
-		this->player.updateDirections();
-		this->player.updateOrientation();
-		this->drawPlayer();
-		
-		// *** This makes huge hit on performance and pixel effect looks better ***
-		//this->LightManager::applyDarkness(*this->parentWindow,
-		//	this->player.position.x - this->defShiftx,
-		//	this->player.position.y - this->defShifty);
-		
-		this->parentWindow->display();
+		this->renderFrame();
 	}
 	return {sceneID::none};
 }
@@ -199,21 +183,20 @@ void GameScene::drawPlayer()
 void GameScene::drawObjects()
 {
 	sf::Sprite sprite;
-
+	
 	for(const auto light:this->LightManager::getLightSources())
 	{
-		int32_t xbegin = (int32_t)(*light->posx / 32.0f);
-		int32_t ybegin = (int32_t)(*light->posy / 32.0f);
-		int32_t xend = xbegin + light->radius;
-		int32_t yend = ybegin + light->radius;
+		int32_t xbegin = (int32_t)(*light->posx/32.0f);
+		int32_t ybegin = (int32_t)(*light->posy/32.0f);
+		int32_t xend = xbegin + light->getTileRadius()+5;
+		int32_t yend = ybegin + light->getTileRadius()+5;
 		int32_t x;
 		int32_t y;
 		Object* obj;
 		DynamicObject* dobj;
 
-		xbegin -= light->radius;
-		ybegin -= light->radius;
-
+		xbegin -= light->getTileRadius()+5;
+		ybegin -= light->getTileRadius()+5;
 		x = xbegin;
 		y = ybegin;
 		
@@ -231,17 +214,17 @@ void GameScene::drawObjects()
 			obj = this->level.getMapObject(x,y);
 			if(obj != nullptr && light->isInRadius(*obj))
 			{
-				posx  = obj->position.x;
-				posx -= this->player.position.x;
-				posx += this->defShiftx;
+					posx  = obj->position.x;
+					posx -= this->player.position.x;
+					posx += this->defShiftx;
 
-				posy = obj->position.y;
-				posy -= this->player.position.y;
-				posy += this->defShifty;
+					posy = obj->position.y;
+					posy -= this->player.position.y;
+					posy += this->defShifty;
 
-				sprite.setTexture(*obj->texture);
-				sprite.setPosition(posx, posy);
-				this->parentWindow->draw(sprite);
+					sprite.setTexture(*obj->texture);
+					sprite.setPosition(posx, posy);
+					this->parentWindow->draw(sprite);
 			}
 
 			dobj = this->level.getObject(x,y);
@@ -272,7 +255,7 @@ sceneID GameScene::switchScene()
 	for(LightSource* plight: this->getLightSources())
 	{
 		printf("LIGHT: %f %f %f\n",
-				*(plight->posx), *(plight->posy), plight->radius);
+				*(plight->posx), *(plight->posy), plight->getRadius());
 	}
 
 	return this->eventLoop();
@@ -330,3 +313,22 @@ void GameScene::spawnLight(int32_t x, int32_t y)
 	this->registerLightSource(static_cast<LightSource*>(tobj));
 }
 
+void GameScene::renderFrame()
+{
+		this->parentWindow->clear(sf::Color::Black);
+		
+		this->drawObjects();
+		
+		this->playerMoveIfValid();
+		this->player.updateDirections();
+		this->player.updateOrientation();
+		this->drawPlayer();
+		
+		// *** This makes huge hit on performance and pixel effect looks better ***
+		//this->LightManager::applyDarkness(*this->parentWindow,
+		//	this->player.position.x - this->defShiftx,
+		//	this->player.position.y - this->defShifty);
+		
+		this->currentFrameParity = !this->currentFrameParity;;
+		this->parentWindow->display();
+}

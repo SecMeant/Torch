@@ -19,7 +19,7 @@ Player::Player()
 
 void Player::scaleLightRadius(float scaleFactor)
 {
-	this->radius *= scaleFactor;
+	this->setRadius(this->getRadius()*scaleFactor);
 	this->light.scaleSprite(1.5f);
 }
 

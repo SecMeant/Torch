@@ -18,12 +18,15 @@ class GameScene:public Scene, public LightManager
 {
 public:
 	// used to shift point (0,0) on screen to the middle
-	static constexpr float defShiftx = 400;
+	static constexpr float defShiftx = 600;
 	static constexpr float defShifty = 400;
 
 private:
 	Player player;
 	Level level;
+
+	bool currentFrameParity;
+
 	virtual sceneID eventLoop() override;
 
 	sceneID handleKeyPressed(const sf::Event &kev);
@@ -40,6 +43,8 @@ private:
 	void pickUp();
 
 	void spawnLight(int32_t x, int32_t y);
+
+	void renderFrame();
 public:
 	explicit GameScene(const std::shared_ptr<sf::RenderWindow> &wnd);
 

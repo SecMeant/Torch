@@ -82,6 +82,10 @@ public:
 	Object* getMapObject(uint32_t x, uint32_t y) const;
 	DynamicObject* getObject(uint32_t x, uint32_t y) const;
 
+	inline void setAllObjectsParity(bool state)
+	{for(auto obj:this->mapObjects) obj->lastFrameParity = state;
+	 for(auto obj:this->objects) obj->lastFrameParity = state;}
+
 	void printObjects();
 
 	friend class UnitTest;

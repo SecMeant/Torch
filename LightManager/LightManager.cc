@@ -22,7 +22,7 @@ bool LightManager::registerLightSource
 
 	printf("New light registered %p\n",ls);
 	printf("LIGHT: %f %f %f\n",
-			*(ls->posx), *(ls->posy), ls->radius);
+			*(ls->posx), *(ls->posy), ls->getRadius());
 	this->lightSources.push_back(ls);
 	return true;
 }
@@ -62,8 +62,8 @@ void LightManager::applyDarkness
 		posy  = *light->posy;
 		posy -= originy;
 
-		circle.setRadius(light->radius);
-		circle.setOrigin(light->radius, light->radius);
+		circle.setRadius(light->getRadius());
+		circle.setOrigin(light->getRadius(), light->getRadius());
 		circle.setPosition(posx+16, posy+16);
 		this->darkness.draw(circle, sf::BlendNone);
 		this->darkness.display();
