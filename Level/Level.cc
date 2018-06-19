@@ -28,7 +28,8 @@ void Level::loadMap(FILE *mapfile, LightManager *lm)
 			    (uint32_t)sizeof(_mapHeader),
 					this->mapHeader.mapWidth,
 					this->mapHeader.mapHeight);
-	
+
+	this->totalMapSize = this->mapHeader.mapWidth * this->mapHeader.mapHeight;
 	this->mapObjects.clear();
 	this->mapObjects.resize(this->mapHeader.mapWidth * this->mapHeader.mapHeight);
 

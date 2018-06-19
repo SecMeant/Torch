@@ -379,7 +379,7 @@ void GameScene::checkLogic()
 
 	while(true)
 	{
-		auto randPos = rand();
+		auto randPos = rand()%this->level.getTotalMapSize();
 		auto randPosX = randPos%this->level.mapHeader.mapWidth;
 		auto randPosY = randPos/this->level.mapHeader.mapHeight;
 

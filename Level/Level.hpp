@@ -46,6 +46,8 @@ public:
 	#pragma pack(pop)
 
 private:
+	int32_t totalMapSize;
+
 	void loadMap(FILE *mapfile, LightManager *lm);
 	bool fetchObjectFromFile(FILE *mapfile, LightManager *lm);
 	
@@ -85,6 +87,9 @@ public:
 	inline void setAllObjectsParity(bool state)
 	{for(auto obj:this->mapObjects) obj->lastFrameParity = state;
 	 for(auto obj:this->objects) obj->lastFrameParity = state;}
+
+	inline int32_t getTotalMapSize()
+	{return this->totalMapSize;}
 
 	void printObjects();
 
