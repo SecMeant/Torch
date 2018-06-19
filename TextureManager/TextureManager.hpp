@@ -19,6 +19,7 @@ public:
 	static sf::Texture mainsceneBackground;
 	static sf::Texture wizard;
 	static sf::Texture light;
+	static sf::Texture torchHand;
 	static sf::Texture torch;
 	static sf::Texture darkness;
 	static sf::Texture wall;
@@ -44,6 +45,9 @@ public:
 
 	static constexpr const char *lightPath
 		= "./assets/light.png";
+
+	static constexpr const char *torchHandPath
+		= "./assets/torchHand.png";
 
 	static constexpr const char *torchPath
 		= "./assets/torch.png";
