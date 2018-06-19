@@ -5,8 +5,7 @@ Player::Player()
  torch(TextureManager::torchHand, 0, 0, 9, 15, 3, 0.25f),
  light(TextureManager::light, 0, 0, 40, 40, 5, 0.25f, 3, 3),
  broom(TextureManager::broom, 0, 0, 60, 60, 6, 0.05f, 0.8f, 0.8f),
- playerSprite(this->direction),
- torchCount(50)
+ playerSprite(this->direction)
 {
 	this->Moveable::set({0,0}, {16,22}, Direction::N);
 	this->playerSprite.setIdleAnimation

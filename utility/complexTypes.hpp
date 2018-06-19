@@ -5,6 +5,7 @@
 #include <stdint.h>
 #include "SFML/Graphics.hpp"
 #include "../TextureManager/TextureManager.hpp"
+#include "../TextureManager/DynamicSprite/DynamicSprite.hpp"
 
 constexpr int defScoreboardEntries = 12;
 
@@ -33,6 +34,7 @@ enum class GameState
 	Over,
 	Highscore
 };
+
 
 class Button
 {

@@ -15,8 +15,6 @@ public:
 	mutable DynamicSprite broom;
 	mutable MotionSprite playerSprite;
 
-	uint32_t torchCount;
-
 	explicit Player();
 
 	void scaleLightRadius(float scaleFactor);

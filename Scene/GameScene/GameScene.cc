@@ -1,7 +1,10 @@
 #include "GameScene.hpp"
 
 GameScene::GameScene(const std::shared_ptr<sf::RenderWindow> &wnd)
-:Scene(wnd), LightManager(wnd->getSize()), smoothDarkness(false), currentFrameParity(0)
+:Scene(wnd), LightManager(wnd->getSize()),
+ torchState(10,DynamicSprite(TextureManager::torch,0,0,9,15,3,0.25f),{15,20}),
+ webState(0,DynamicSprite(TextureManager::web,0,0,32,32,1,0.25f,1.0f,1.0f),{15,60}),
+ smoothDarkness(false), currentFrameParity(0)
 {
 	puts("GAMESCENE CREATION MESSAGE");
 	this->setBackground(TextureManager::gamesceneBackground);
@@ -270,6 +273,12 @@ void GameScene::drawObjects()
 	}
 }
 
+void GameScene::drawStats()
+{
+	this->torchState.draw(*this->parentWindow);
+	this->webState.draw(*this->parentWindow);
+}
+
 sceneID GameScene::switchScene()
 {
 	puts("Switching to GAMESCENE");
@@ -292,13 +301,13 @@ void GameScene::placeTorch()
 	if(obj->type != Object::Type::Ground)
 		return;
 
-	if(this->player.torchCount > 0)
+	if(this->torchState.value > 0)
 	{
 		this->spawnLight(x,y);
-		--this->player.torchCount;
+		--this->torchState.value;
 	}
 
-	printf("Torch count: %u\n",this->player.torchCount);
+	printf("Torch count: %u\n",this->torchState.value);
 }
 
 void GameScene::pickUp()
@@ -318,8 +327,7 @@ void GameScene::pickUp()
 	this->level.removeObject(this->level.getObject(x,y));
 	this->removeLightSource(static_cast<LightSource*>(dynamic_cast<OTorch*>(obj)));
 
-	this->player.torchCount++;
-	printf("Torch count: %u\n", this->player.torchCount);
+	++this->torchState.value;
 }
 
 void GameScene::spawnLight(int32_t x, int32_t y)
@@ -353,6 +361,8 @@ void GameScene::renderFrame()
 				this->player.position.x - this->defShiftx,
 				this->player.position.y - this->defShifty);
 		}
+
+		this->drawStats();
 		
 		this->currentFrameParity = !this->currentFrameParity;
 		this->parentWindow->display();
@@ -369,6 +379,7 @@ void GameScene::checkLogic()
 		if(obj != nullptr && obj->type == Object::Type::Target)
 		{
 			this->level.removeObject(obj);
+			--this->webState.value;
 		}
 	}
 
@@ -395,6 +406,7 @@ void GameScene::checkLogic()
 			 static_cast<float>(randPosY*Level::defaultTileHeight)});
 		testweb->setSprite({TextureManager::web, 0, 0, 32, 32, 1, 0.0f, 1.0f, 1.0f});
 		this->level.insertObject(testweb);
+		++this->webState.value;
 
 		return; // Breaks while
  	}

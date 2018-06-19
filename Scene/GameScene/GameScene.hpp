@@ -8,6 +8,7 @@
 #include "../../Object/Torch/OTorch.hpp"
 
 #include "../../utility/complexTypes.hpp"
+#include "StatsObject/StatsObject.hpp"
 
 #include <SFML/Graphics.hpp>
 
@@ -27,6 +28,9 @@ private:
 	Player player;
 	Level level;
 
+	StatsObject torchState;
+	StatsObject webState;
+
 	sf::Clock clock;
 
 	bool smoothDarkness;
@@ -43,6 +47,7 @@ private:
 	/* DRAWING HELPER METHODS */
 	void drawPlayer();
 	void drawObjects();
+	void drawStats();
 
 	void placeTorch();
 	void pickUp();
