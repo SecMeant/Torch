@@ -4,6 +4,7 @@ sf::Font TextureManager::defaultFont;
 sf::Texture TextureManager::nulltexture;
 sf::Texture TextureManager::gamesceneBackground;
 sf::Texture TextureManager::mainsceneBackground;
+sf::Texture TextureManager::creditssceneBackground;
 sf::Texture TextureManager::wizard;
 sf::Texture TextureManager::light;
 sf::Texture TextureManager::torchHand;
@@ -33,6 +34,7 @@ void TextureManager::loadTextures()
 	TextureManager::nulltexture.loadFromFile(this->nulltexPath);
 	TextureManager::gamesceneBackground.loadFromFile(this->gamesceneBackgroundPath);
 	TextureManager::mainsceneBackground.loadFromFile(this->mainsceneBackgroundPath);
+	TextureManager::creditssceneBackground.loadFromFile(this->creditssceneBackgroundPath);
 	TextureManager::wizard.loadFromFile(this->wizardPath);
 	TextureManager::light.loadFromFile(this->lightPath);
 	TextureManager::torchHand.loadFromFile(this->torchHandPath);

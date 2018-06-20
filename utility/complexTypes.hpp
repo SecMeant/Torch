@@ -13,6 +13,7 @@ enum sceneID:int32_t
 {
 	mainmenu = 0,
 	gamescene = 1,
+	credits = 2,
 	none = 1337
 };
 

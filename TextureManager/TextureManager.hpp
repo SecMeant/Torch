@@ -17,6 +17,7 @@ public:
 	static sf::Texture nulltexture;
 	static sf::Texture gamesceneBackground;
 	static sf::Texture mainsceneBackground;
+	static sf::Texture creditssceneBackground;
 	static sf::Texture wizard;
 	static sf::Texture light;
 	static sf::Texture torchHand;
@@ -39,6 +40,9 @@ public:
 
 	static constexpr const char *mainsceneBackgroundPath
 		= "./assets/mainsceneBackground.png";
+
+	static constexpr const char *creditssceneBackgroundPath
+		= "./assets/creditssceneBackground.png";
 
 	static constexpr const char *wizardPath
 		= "./assets/player/wizard.png";

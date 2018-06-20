@@ -2,6 +2,7 @@
 #define MAINSCENE_H
 
 #include "../Scene.hpp"
+#include "../../TextureManager/DynamicSprite/DynamicSprite.hpp"
 
 #include "../../utility/complexTypes.hpp"
 
@@ -14,9 +15,13 @@ class MainScene:public Scene
 {
 private:
 	TextButton gamesceneTextBtn;
+	TextButton creditsTextBtn;
+
+	DynamicSprite torch;
 
 	void initializeButtons();
 	void handleMouseHovers(const sf::Event &ev);
+	void drawTorch();
 	sceneID handleMouseReleased(const sf::Event &ev);
 	virtual sceneID eventLoop() override;
 

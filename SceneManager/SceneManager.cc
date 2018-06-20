@@ -2,6 +2,7 @@
 
 #include "../Scene/MainScene/MainScene.hpp"
 #include "../Scene/GameScene/GameScene.hpp"
+#include "../Scene/CreditsScene/CreditsScene.hpp"
 
 SceneManager::SceneManager()
 : mainWindow()
@@ -15,6 +16,7 @@ SceneManager::SceneManager()
 
 	this->registerScene<MainScene>();
 	this->registerScene<GameScene>();
+	this->registerScene<CreditsScene>();
 
 	this->currentScene = sceneID::mainmenu;
 }
