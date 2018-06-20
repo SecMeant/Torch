@@ -5,7 +5,7 @@ StatsObject::StatsObject(int32_t val, DynamicSprite &&tex, sf::Vector2f pos)
 {
 	this->text.setFont(TextureManager::defaultFont);
 	this->text.setPosition(this->position.x+20,this->position.y-20);
-	this->text.setFillColor(sf::Color::White);
+	this->text.setColor(sf::Color::White);
 	this->text.setCharacterSize(32);
 }
 
