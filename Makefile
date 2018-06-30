@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-Wextra -Wall -std=c++14 -O3
+CFLAGS=-Wextra -Wall -std=c++14
 sfmlso=-lsfml-graphics -lsfml-window -lsfml-system
 OBJS=main.o scene.o scenemanager.o texturemanager.o complexTypes.o\
 		 mainscene.o gamescene.o player.o moveable.o dynamicsprite.o\

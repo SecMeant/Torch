@@ -5,7 +5,7 @@ TextButton::TextButton
 {
 	this->text.setFont(font);
 	this->text.setCharacterSize(charSize);
-	this->setColors(defC, hc);
+	this->setFillColors(defC, hc);
 }
 
 bool TextButton::clicked(const sf::Event &ev)
